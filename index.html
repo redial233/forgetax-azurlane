@@ -3,194 +3,530 @@
 <title>港区锻造税 · 塞壬的征收</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
-body{margin:0;font-family:system-ui,"PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(180deg,#0b2447,#163a6b 45%,#0e2a50);color:#eaf4ff;min-height:100vh}
-#app{max-width:480px;margin:0 auto;padding:8px 10px 90px}
-.bar{display:flex;flex-wrap:wrap;gap:6px;justify-content:space-between;background:rgba(255,255,255,.08);border:1px solid #c9a75a;border-radius:12px;padding:8px 10px;font-size:13px}
-.bar b{color:#ffd77a}.anger span{display:inline-block;width:14px;height:14px;border-radius:50%;background:#33507a;margin-left:2px;vertical-align:-2px}.anger span.on{background:#ff4d6d;box-shadow:0 0 6px #ff4d6d}
-.scene{position:relative;margin-top:8px;height:210px;border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#9fd8ff 0%,#dff3ff 55%,#3c78b5 56%,#1d4f86 100%);border:2px solid #c9a75a}
-.speech{position:absolute;left:120px;right:8px;top:10px;background:#fff;color:#1b3358;border-radius:12px;padding:8px 10px;font-size:13px;min-height:44px;box-shadow:0 2px 6px #0004}
+body{margin:0;font-family:system-ui,"PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(180deg,#0b2447,#163a6b 45%,#0e2a50) fixed;color:#eaf4ff;min-height:100vh}
+#app{max-width:480px;margin:0 auto;padding:8px 10px 120px}
+.bar{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 6px;background:rgba(255,255,255,.08);border:1px solid #c9a75a;border-radius:12px;padding:7px 10px;font-size:12.5px}
+.bar b{color:#ffd77a}
+.anger span{display:inline-block;width:13px;height:13px;border-radius:50%;background:#33507a;margin-left:2px;vertical-align:-2px}.anger span.on{background:#ff4d6d;box-shadow:0 0 6px #ff4d6d}
+.scene{position:relative;margin-top:8px;height:190px;border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#9fd8ff 0%,#dff3ff 55%,#3c78b5 56%,#1d4f86 100%);border:2px solid #c9a75a}
+.scene .wave{position:absolute;left:-20%;right:-20%;top:54%;height:10px;background:repeating-radial-gradient(circle at 10px -4px,transparent 0 8px,#cfeaff 9px 10px,transparent 11px);background-size:20px 10px;animation:wv 6s linear infinite;opacity:.7}
+@keyframes wv{to{transform:translateX(20px)}}
+.speech{position:absolute;left:112px;right:96px;top:8px;background:#fff;color:#1b3358;border-radius:12px;padding:6px 9px;font-size:12.5px;min-height:40px;box-shadow:0 2px 6px #0004;z-index:2}
 .speech:before{content:"";position:absolute;left:-8px;top:16px;border:8px solid transparent;border-right-color:#fff;border-left:0}
-.siren{position:absolute;right:8px;bottom:6px;width:120px;opacity:.95}
-.who{position:absolute;left:4px;bottom:0;width:120px}
+.siren{position:absolute;right:2px;bottom:0;width:104px;animation:float 3.2s ease-in-out infinite}
+.siren.mad .eye{animation:glow .5s infinite alternate}
+@keyframes glow{to{opacity:.35}}
+.who{position:absolute;left:0;bottom:-4px;width:118px;transform-origin:50% 100%;animation:bob 2.4s ease-in-out infinite}
+.who .lid{animation:blink 4s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(0)}96%{transform:scaleY(1)}}
+.who .ear{transform-origin:50% 100%;animation:ear 3s ease-in-out infinite}
+@keyframes ear{50%{transform:rotate(-5deg)}}
+@keyframes bob{50%{transform:translateY(-3px) scaleY(1.01)}}
+@keyframes float{50%{transform:translateY(-6px)}}
+.who.joy{animation:jump .5s ease 2}.who.sad{animation:droop 1s ease}
+@keyframes jump{40%{transform:translateY(-18px)}}
+@keyframes droop{30%,70%{transform:translateY(6px) rotate(-4deg)}}
 .anvil{margin-top:8px;background:rgba(255,255,255,.07);border:1px solid #7fb3e6;border-radius:14px;padding:10px}
-.odds{display:flex;height:16px;border-radius:8px;overflow:hidden;font-size:10px;margin:6px 0}
+.odds{display:flex;height:18px;border-radius:8px;overflow:hidden;font-size:10px;margin:6px 0}
 .odds div{display:flex;align-items:center;justify-content:center;overflow:hidden;color:#fff;white-space:nowrap}
-.legend{font-size:11px;opacity:.85;display:flex;gap:8px;flex-wrap:wrap}
+.legend{font-size:11px;opacity:.9;display:flex;gap:8px;flex-wrap:wrap}
 .legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:2px}
-.charge{display:flex;gap:3px;margin:6px 0}.charge i{flex:1;height:8px;border-radius:3px;background:#2b4a75}.charge i.on{background:#ffd77a}.charge.fr i{background:#ff7ad9;animation:pulse .4s infinite alternate}
-@keyframes pulse{to{opacity:.4}}
-.btn{border:0;border-radius:10px;padding:10px 12px;font-size:15px;font-weight:700;color:#0b2447;background:linear-gradient(#fff,#cfe8ff);box-shadow:0 2px 0 #6b95c4;cursor:pointer}
+.charge{display:flex;gap:3px;margin:6px 0}.charge i{flex:1;height:9px;border-radius:3px;background:#2b4a75}.charge i.on{background:#ffd77a}
+.frbar{height:10px;border-radius:5px;background:#3a2350;overflow:hidden;margin:6px 0}.frbar div{height:100%;background:linear-gradient(90deg,#ff7ad9,#ffd77a)}
+.btn{border:0;border-radius:10px;padding:10px 12px;font-size:15px;font-weight:700;color:#0b2447;background:linear-gradient(#fff,#cfe8ff);box-shadow:0 2px 0 #6b95c4;cursor:pointer;font-family:inherit}
 .btn.gold{background:linear-gradient(#ffeaa8,#e0b44f);box-shadow:0 2px 0 #9b7424}.btn.red{background:linear-gradient(#ffc2cc,#ff6b84);color:#fff;box-shadow:0 2px 0 #a8304a}
+.btn.pink{background:linear-gradient(#ffd6f3,#ff7ad9);color:#fff}
 .btn:disabled{opacity:.4}.btn:active{transform:translateY(2px);box-shadow:none}
-.row{display:flex;gap:8px}.row .btn{flex:1}
-.big{font-size:22px;padding:16px}
+.btn.armed{outline:3px solid #43c98b}
+.row{display:flex;gap:6px}.row .btn{flex:1}
+.big{font-size:22px;padding:15px}
 .cur{display:flex;align-items:center;gap:10px}
-.gear{width:64px;height:64px;flex:none}
+.gear{width:62px;height:62px;flex:none}
 h3{margin:12px 0 6px;font-size:15px;color:#ffd77a}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.card{background:rgba(255,255,255,.1);border:2px solid #4f7fb5;border-radius:10px;padding:5px;text-align:center;font-size:12px;position:relative}
+.card{background:rgba(255,255,255,.1);border:2px solid #4f7fb5;border-radius:10px;padding:5px 4px;text-align:center;font-size:11.5px;position:relative;line-height:1.3}
 .card.sel{border-color:#ffd77a;box-shadow:0 0 8px #ffd77a}.card.tr{border-color:#ff7ad9;background:rgba(255,122,217,.18)}
 .card .lv{font-size:18px;font-weight:800;color:#ffd77a}.card .hot{position:absolute;top:2px;right:4px}
-.tabs{display:flex;gap:4px;margin-top:10px}.tabs .btn{flex:1;font-size:13px;padding:8px 4px}
+.card .tg{display:block;margin-top:4px;font-size:11px;padding:4px;border-radius:6px;background:#2b4a75}
+.card.tr .tg{background:#ff7ad9;color:#fff}
+.tabs{display:flex;gap:4px;margin-top:10px;flex-wrap:wrap}.tabs .btn{flex:1;font-size:12.5px;padding:8px 2px}
 .tabs .btn.on{background:linear-gradient(#ffeaa8,#e0b44f)}
 .panel{background:rgba(0,0,0,.18);border-radius:12px;padding:8px;margin-top:6px}
 .relic{display:flex;gap:8px;align-items:center;background:rgba(255,255,255,.08);border-radius:10px;padding:6px;margin-bottom:6px;font-size:12px}
 .relic b{font-size:13px;color:#bfe6ff}.relic .btn{font-size:12px;padding:6px 8px;flex:none}
-.foot{position:fixed;left:0;right:0;bottom:0;background:linear-gradient(transparent,#0b2447 30%);padding:14px 10px 10px}
+.r1 b{color:#ffd77a}.r2 b{color:#ff9bd2}
+.tag{font-size:10px;padding:1px 5px;border-radius:6px;background:#2b4a75;margin-left:4px}
+.foot{position:fixed;left:0;right:0;bottom:0;background:linear-gradient(transparent,#0b2447 35%);padding:16px 10px calc(10px + env(safe-area-inset-bottom))}
 .foot .in{max-width:480px;margin:0 auto}
 .modal{position:fixed;inset:0;background:#0009;display:flex;align-items:center;justify-content:center;z-index:9;padding:16px}
-.modal .box{background:linear-gradient(#f4fbff,#d6ecff);color:#1b3358;border-radius:16px;border:3px solid #c9a75a;padding:16px;max-width:440px;max-height:85vh;overflow:auto;font-size:14px;line-height:1.6}
+.modal .box{background:linear-gradient(#f4fbff,#d6ecff);color:#1b3358;border-radius:16px;border:3px solid #c9a75a;padding:16px;max-width:440px;width:100%;max-height:86vh;overflow:auto;font-size:14px;line-height:1.6}
 .modal h2{margin:0 0 8px;color:#1d4f86}
-.fx{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%);font-size:34px;font-weight:900;pointer-events:none;text-shadow:0 2px 6px #000;animation:pop 1s forwards;z-index:8}
+.fx{position:fixed;left:50%;top:38%;transform:translate(-50%,-50%);font-size:32px;font-weight:900;pointer-events:none;text-shadow:0 2px 6px #000;animation:pop 1s forwards;z-index:8;white-space:nowrap}
 @keyframes pop{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-90%) scale(1)}}
+.toast{position:fixed;left:50%;top:12px;transform:translateX(-50%);background:#ffd77a;color:#0b2447;padding:8px 14px;border-radius:10px;font-weight:700;z-index:10;font-size:13px;animation:pop2 2.6s forwards;max-width:90vw}
+@keyframes pop2{0%{opacity:0}10%,80%{opacity:1}100%{opacity:0}}
 .shake{animation:sh .3s}@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-small{opacity:.75}
+small{opacity:.78}.procs{font-size:11px;color:#9fe3c0;min-height:14px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;font-size:10px}.cal div{background:#e6f2ff;border-radius:5px;padding:2px;text-align:center}.cal .now{background:#ffd77a}.cal .mer{border:2px solid #43c98b}.cal .past{opacity:.45}
 </style></head><body><div id="app"></div>
 <script>
 "use strict";
-// ===== 数据 =====
-const BASE=320, DAYS=21;
-const quota=d=>Math.round(1800*Math.pow(1.275,d-1)/10)*10;
-const BRK=[0,.04,.10,.17,.248,.297,.33,.36,.39,.43,.467];
-function odds(lv,st){ // 返回 [大成功,成功,维持,受损,破碎]
-  let b=lv<BRK.length?BRK[lv]:Math.min(.7,.467+.03*(lv-10));
-  let g=.08,s=Math.max(.22,.6-.035*lv),dm=lv?Math.min(.18,.06+.01*lv):0;
-  if(has('r_blessing'))b*=.85; if(has('r_great'))g+=.06;
-  if(has('r_lowsafe')&&lv<=3){b=0}
-  if(st&&st.fr>0)b=0;
-  if(has('r_nodmg')){dm=0}
-  let h=Math.max(0,1-g-s-dm-b);
-  if(h<0.03){const k=(1-.03)/(g+s+dm+b);g*=k;s*=k;dm*=k;b*=k;h=.03}
-  return [g,s,h,dm,b];
-}
-const valOf=w=>Math.round(BASE*(has('r_base')?1.4:1)*Math.pow(1.5,w.lv)*(w.bonus||1));
-const NAMES=['127mm连装炮','152mm三联装炮','533mm鱼雷','双联40mm博福斯','203mm主炮','381mm三联装炮','九三式氧气鱼雷','Mk.12 5英寸炮'];
-const RELICS={
- r_blessing:['雅努斯的祈祷','破碎概率降低 15%（相对值）'],
- r_great:['维修猫的幸运锤','大成功概率 +6%'],
- r_lowsafe:['明石的担保书','+3 及以下强化时绝不破碎'],
- r_nodmg:['精密校准仪','不再出现"受损"结果'],
- r_base:['紫金魔方','所有舰装基础价值 +40%'],
- r_fr7:['恶毒的兔耳发箍','狂热只需 7 次强化就能充满'],
- r_frlong:['满破之心','狂热持续 10 锤（原 7 锤）'],
- r_quota:['指挥官的外交函','塞壬征收额 -12%'],
- r_supply:['后勤补给线','每天早上多送来 1 件舰装'],
- r_hold:['回火工艺','"维持"时该舰装价值 ×1.08（可叠加）'],
- r_rewind:['时间回溯装置','每天获得 1 次撤销（撤回上一锤）'],
- r_scrap:['废料回收站','舰装破碎时返还其价值 40% 的资金'],
- r_credit:['装备箱扩容','投入 +0 舰装可换 2 张物资券'],
- r_gold:['港区财务官','结算返还资金 +50%'],
- r_heat:['常驻锅炉','舰装送来时已预热'],
- r_calm:['和平条约草案','超额缴纳 50% 以上时塞壬怒气 -1'],
+// ================= 原作数据（来自 forgetax.tools 与 Steam 更新日志，名称为碧蓝航线风原创改写） =================
+const VER=3, SAVEKEY='ftal_v3', METAKEY='ftal_meta';
+const DAYS=21, BASE=320, MAXLV=99, CHMAX=10, CD=640;
+const QUOTA=[0,1800,2100,2600,3350,4350,5700,7500,9800,12800,16700,21500,27750,35700,45800,58650,74650,94550,119350,149950,186850,232000];
+const quotaOf=d=>d<=21?QUOTA[d]:Math.round(232000*Math.pow(1.2,d-21));
+const BRK=[0,1.8,5.9,12.9,24.8,29.7,34.7,38.3,41.8,44.3,46.7,49.1,50.5,51.9,53.2,54.5,55.8,57.6,59.4,61.2,63.0,63.9,64.8,65.7,66.6,67.5,68.4,69.3,70.2,71.1,72.0];
+const curve=lv=>BRK[Math.min(lv,30)]/100;
+// 商店稀有度概率（普通/稀有/传说）
+function shopOdds(d){if(d<=3)return[85,15,0];if(d<=5)return[75,25,0];if(d==6)return[70,25,5];if(d<=8)return[60,35,5];if(d<=12)return[53,35,12];if(d<=16)return[36,42,22];return[28,42,30]}
+// 遗物：slug:[名称, 效果, 稀有度0/1/2, 出现天数, 价格(券), 类别 r普通/m杰作/a成就]
+const R={
+bent_nail:['弯曲的铆钉','成功签 +4',0,2,1],
+worn_whetstone:['旧磨刀石','2 张维持签转为成功签',0,2,1],
+black_knot:['黑色舰绳结','破碎概率 -10%',0,2,1],
+third_hand:['维修猫的第三只手','每连续 2 次成功/大成功：额外 +1 级',1,3,2],
+inspection_stamp:['验收印章','每次成功/大成功：舰装价值 +100',0,2,1],
+golden_nail:['金色铆钉','大成功签 +2',1,3,2],
+cracked_bell:['裂开的号钟','每次大成功：舰装价值 +20%',1,4,1],
+sealing_stone:['封印之石','维持签 +2；每连续 2 次维持：+1 级',0,2,1],
+double_knot:['双重缆结','每连续 2 次成功/大成功：舰装价值 +10%',0,3,1],
+lightning_mark:['雷击纹章','狂热外大成功后，下一锤破碎概率 -40%',1,4,1],
+wirebound_scabbard:['缠线炮衣','每天第一次破碎变为受损',1,4,2],
+echo_hammer:['回声之锤','每次成功/大成功有 25% 概率额外 +1 级',1,5,2],
+sleeping_ember:['沉睡的余烬','每次维持有 70% 概率 +1 级',1,4,3],
+iron_hoop:['铁箍','破碎签 -2',0,3,1],
+scorched_charm:['焦黑护符','狂热外每次成功/大成功，本舰装破碎概率 -3%（最多 -18%）',1,3,1],
+undertakers_chalice:['送葬者的圣杯','舰装破碎时，把其最高价值的 30% 作为残骸放入征收窗口',1,2,1],
+heavy_paperweight:['沉重的镇纸','每次维持：舰装价值 +180',0,2,1],
+phoenix_ash:['不死鸟之灰','每件舰装一次：以损失 40% 价值为代价阻止破碎',2,6,3],
+worn_grip:['磨旧的握把','锻造速度 +15%',1,4,2],
+supply_permit:['补给许可证','从下一天起每天多送来 1 件舰装',1,8,4],
+cracked_splice:['裂开的接驳件','每次受损使本舰装破碎概率 -15%（最多 -60%）',1,3,2],
+dragonscale_tongs:['龙鳞铁钳','+6 及以上时破碎概率 -25%',1,5,2],
+grudge_nail:['怨念铆钉','舰装破碎时，储存等同其等级的一次性大成功签',1,3,2],
+sealed_heart:['封印之心','每次维持使下一次大成功额外 +1 级（最多 +4）',1,3,2],
+possessed_bellows:['附魔风箱','狂热期间锻造速度 +30%',2,7,3],
+broken_holy_sword:['折断的圣剑','破碎舰装 30% 的等级传给下一件未锻造的 +0 舰装，并给 3 格狂热充能（可与黎明炮衣叠加）',1,3,1],
+ossuary_kings_scabbard:['骸骨王的炮衣','+7 及以上舰装破碎时，本局永久获得 1 张它上一锤结果的签',1,5,3],
+cracked_crown:['破碎王冠','受损时保留失去等级价值的 50%',1,3,1],
+giants_spine:['巨人脊骨','每 2 次受损储存 1 次保护，把下一次破碎变为受损（该受损不计数）',1,5,2],
+defeated_kings_seal:['败王印章','每次受损使下一次大成功额外 +1 级',1,4,3],
+blind_die:['盲骰','受损或维持后：下一锤大成功签 +3',0,3,1],
+chained_hourglass:['锁链沙漏','狂热外每次维持有 50% 概率 +1 狂热充能',0,3,1],
+soot_censer:['煤灰香炉','结果与上一锤不同时：基础价值 +20',1,4,2],
+split_twin_mirror:['双生裂镜','每连续 2 次相同结果，重复上一次遗物价值加成',2,6,3],
+bound_idol:['被缚的神像','舰装首次达到 +4、+8、+12…时价值 +15%',0,2,1],
+headless_bell:['无首之钟','狂热结束时 +1 级',1,6,2],
+collectors_hook:['收藏家的钩子','每天刷新后，第一件未锻造 +0 舰装投入装备箱可换 2 张券',1,4,2],
+thorn_weight:['荆棘砝码','舰装价值 +10%；2 张维持签转为受损签',0,3,1],
+obsidian_eye:['黑曜石之眼','+8 及以上时 2 张成功签转为大成功签',1,6,2],
+smiths_testament:['工匠遗书','用 +10 以上舰装缴足征收后，下一批中一件舰装以其 30% 等级开始',1,5,2],
+charcoal_pouch:['木炭袋','舰装基础价值 +80',0,2,1],
+iron_signet:['铁戒指','舰装价值 +15%',0,2,1],
+blunt_mallet:['钝头木槌','1 张受损签转为成功签',0,2,1],
+patient_weight:['耐心的砝码','维持签 +3',0,2,1],
+lucky_coal:['幸运煤块','大成功签 +1',0,2,1],
+red_thread:['红线','维持后，下一锤破碎概率 -20%',0,2,1],
+patched_apron:['打补丁的围裙','每次受损：舰装价值 +140',0,2,1],
+cold_teacup:['冷掉的红茶杯','每次维持：舰装价值 +6%',0,3,1],
+silver_tuning_fork:['银音叉','狂热外每次大成功额外 +1 级',1,4,2],
+bronze_cog:['青铜齿轮','每次成功使本舰装成功签 +1',1,5,3],
+little_wind_bell:['小风铃','每次维持使下一次成功额外 +1 级（最多 +2）',0,3,1],
+black_iron_stone:['黑铁石','+8 及以上时舰装价值 +30%',1,5,2],
+worn_voucher:['旧兑换券','每天 1 次免费刷新装备箱',1,3,2],
+ash_sieve:['灰烬筛子','舰装破碎时获得 500 资金',0,2,1],
+ember_locket:['余烬吊坠','每件舰装第一次普通强化：+2 狂热充能',1,4,2],
+cracked_wristwatch:['裂开的怀表','狂热外每次受损 +1 狂热充能',0,3,1],
+bell_collar:['铃铛项圈','狂热期间每一锤：舰装价值 +5%',1,6,2],
+glass_hourglass:['玻璃沙漏','狂热中的大成功 +3 级',1,5,2],
+leather_loop:['皮革腕带','狂热外锻造速度 +20%',0,2,1],
+first_brand:['初次烙印','舰装第一锤若为成功/大成功：额外 +2 级',0,2,1],
+closed_third_eye:['闭合的第三只眼','维持后，下一锤成功签 +4',0,3,1],
+tax_tally:['税务计数板','每次缴足征收：+1 张物资券',1,5,3],
+journeyman_badge:['学徒徽章','缴足征收后，下一批舰装至少从 +2 开始',1,4,2],
+iron_comb:['铁梳','每次受损：把受损前等级价值的 5% 加到舰装上',0,3,1],
+wax_effigy:['蜡像','每连续 2 次相同结果：舰装价值 +150',0,2,1],
+interlocking_weights:['咬合砝码','受损后的成功/大成功额外 +2 级',1,4,2],
+sealed_rebate:['密封的退税单','征收额 -10%',1,5,2],
+hungry_molar:['饥饿的臼齿','+4 以上舰装破碎时，下一件未锻造 +0 舰装永久成功签 +4',0,3,1],
+royal_spike:['皇家长钉','成功签 +6',1,6,2],
+mourning_knot:['哀悼之结','每次征收失败，本局永久大成功签 +1',1,3,1],
+unbroken_oath:['不灭誓约','每次受损有 70% 概率 +1 级',1,4,2],
+kings_empty_cup:['国王的空杯','每次维持使本舰装大成功签 +1',2,6,3],
+golden_cog:['黄金齿轮','每次成功：基础价值 +30',1,5,2],
+oracle_die:['神谕骰子','大成功签 +4',2,9,3],
+pocket_hearth:['口袋锅炉','本局每缴足一次征收，基础价值 +20',1,7,3],
+red_hourglass:['红色沙漏','狂热持续 +1 秒',1,6,2],
+dragon_signet:['塞壬徽记','+12 及以上时舰装价值 +50%',2,9,3],
+silver_supply_writ:['白银补给令','从明石下次来访起，基础舰装库存 +2',1,6,2],
+// 杰作（家族锻到 +20 解锁）
+unyielding_cornerstone:['不屈基石','每件舰装第一次破碎变为受损',2,7,4,'m','citadel'],
+dawn_scabbard:['黎明炮衣','破碎舰装 40% 的等级传给下一件未锻造 +0 舰装，并给 4 格狂热充能（可与折断的圣剑叠加）',2,6,3,'m','holy'],
+ceaseless_driveshaft:['永动传动轴','每累计 2 次成功：额外 +1 级',2,7,4,'m','saw'],
+dragon_heart:['龙之心','+7 及以上时每次成功/大成功：舰装价值 +15%',2,8,4,'m','dragon'],
+perfect_mana_core:['完美心智魔方','狂热期间大成功签 +6',2,7,4,'m','rune'],
+seal_of_twins:['双子之印','每次存活的强化有 2% 概率复制这件舰装',2,8,4,'m','split'],
+eternal_seed:['永恒之种','维持签 +6；每次维持基础价值 +40',2,7,4,'m','tree'],
+abyssal_pearl:['深渊珍珠','受损签 +3；每件舰装前 2 次受损不降级（受损类遗物照常触发）',2,7,4,'m','fish'],
+// 成就遗物
+undertakers_ledger:['送葬者账本','+7 以上舰装破碎后，第二天多 1 件舰装（每天最多 2）',2,8,4,'a','FUNERARY'],
+butterfingers:['手滑','破碎签 +3；大成功签 +5',2,6,3,'a','BROKEN10'],
+undying_wick:['不灭灯芯','狂热持续 +2 秒',2,8,4,'a','FRENZY5'],
+royal_change:['皇家找零','超额上缴的 30% 抵扣下一天征收（最多 -30%）',2,7,4,'a','TRIPLE'],
+dragons_pardon:['塞壬的赦免','免死一次：怒气 -1，然后消失',2,6,4,'a','LASTCHANCE'],
+wandering_ghosts_ledger:['流浪商人账簿','从明石下次来访起多带 2 种商品',2,6,3,'a','SOLDOUT'],
+sickle_and_hammer:['镰刀与锤子','每种结果的基础签数都设为 5',2,6,4,'a','CLEAR'],
+lifetime_contract:['终身合同','舰装无需加热（立即生效）；从下一批起送来的舰装从 +7 开始',2,10,5,'a','OVERTIME3'],
 };
-const SHOP=[['new','新的舰装 (+0)',300],['scale','损管套件：挡下下一次破碎',650],['rew','快速修理：+1 次撤销',400],['great','高级图纸：下一锤必定成功',500],['calm','塞壬的贡品：怒气 -1',1500]];
-// ===== 状态 =====
-let S;
-function fresh(){return{day:1,anger:0,gold:0,cred:0,relics:[],inv:[],sel:-1,shop:null,firstPick:true,scale:0,rew:0,sure:0,hist:[],tab:'relic',over:0,maxv:0,uid:1,starter:true}}
-function has(r){return S&&S.relics.includes(r)}
-function mkW(){return{id:S.uid++,n:NAMES[Math.random()*NAMES.length|0],lv:0,hot:has('r_heat'),ch:0,fr:0,tr:false,bonus:1}}
-function save(){localStorage.setItem('ftal',JSON.stringify(S))}
-function load(){try{S=JSON.parse(localStorage.getItem('ftal'))}catch(e){}if(!S||!S.day)newRun(true)}
-function newRun(quiet){S=fresh();morning(true);if(!quiet)say('新的契约开始了，指挥官……塞壬每天傍晚都会来征收，请加油！');save();render()}
-function morning(first){
-  const n=3+(has('r_supply')?1:0);for(let i=0;i<n;i++)S.inv.push(mkW());
-  if(has('r_rewind'))S.rew+=1;
-  S.shop=rollShop(first);S.reroll=100;
+const STARTER=['bent_nail','black_knot','inspection_stamp','sealing_stone','cracked_splice','sealed_heart','undertakers_chalice','lucky_coal'];
+const RECOVERY=['black_knot','iron_hoop','undertakers_chalice','broken_holy_sword','cracked_splice','wirebound_scabbard'];
+// 舰装形态
+const COMMON=['旧式单装炮','旧式单装炮','改良单装炮','改良单装炮','制式双联装炮','制式双联装炮'];
+const LANE=[['厚重装甲炮塔','移动堡垒炮台'],['暴躁的钢铁块','獠牙鱼雷管'],['心智魔方碎片','觉醒中的魔方炮']];
+const FAM={
+ citadel:['要塞系','不太对劲的巨炮','双层装甲主炮','拆下来的船坞大门','带握把的海上要塞','碾碎山脉的超级战列','劈开大陆的钢铁城塞'],
+ holy:['皇家系','银光誓约炮','女王祝福之炮','破晓之炮','王者认可之炮','约定黎明之剑','誓约之剑·EX'],
+ saw:['铁血系','这是锯子还是炮？','啃甲锯齿炮','咬合钢锯','碾钢粉碎机','断山巨锯','毁灭齿轮·无尽'],
+ dragon:['重樱系','幼龙之牙','龙鳞太刀','怒鳞龙刃','翼龙之刃','龙王吐息','妖刀·屠龙'],
+ rune:['魔方系','刻印魔方炮','觉醒刻印炮','过载之刃','大魔导引擎','撕裂现实之炮','阿卡夏·创世之刃'],
+ split:['鱼雷系','散而不离的鱼雷','讨厌孤单的连装鱼雷','号令群刃','厚脸皮鱼雷','千刃之主','万刃之王'],
+ tree:['港区神樱','落下的樱枝','意外结实的树枝','不会断的棍棒','晚开的棍子','种子开始萌动','这曾是一根树枝','花苞里的森林','千年神木','涌泉之樱','托起港区之树','世界树·港区神樱'],
+ fish:['深海系','海带缠的刃片','墨鱼骨小刀','蟹壳锯刃','冷冻金枪鱼','鱼串','烤鱼串','河豚锤','珊瑚祭坛之刃','鲸颚之刃','克拉肯触手','利维坦之牙'],
+ funerary:['塞壬残骸系','锈蚀的塞壬残片','裹布的拆解刀','打捞铲','断裂的舰首碑','沉船甲板巨刃','唤醒亡者之钟','游魂之炬','守墓人之镰','被掘起的沉船','亡者的墓园','冥海之钥'],
+};
+const LANEFAM=[['citadel','holy'],['saw','dragon'],['rune','split']];
+const MERCH_LINES=['tree','fish','funerary'];
+function formName(w){if(w.scrap)return '残骸';const p=Math.min(w.peak,20);
+  if(w.line){const f=FAM[w.line];return f[1+Math.min(10,p>>1)]}
+  if(p<6)return COMMON[p];if(p<10)return LANE[w.lane][p<8?0:1];
+  const f=FAM[LANEFAM[w.lane][w.branch]];return f[1+Math.min(5,(p-10)>>1)]}
+function famOf(w){if(w.line)return w.line;if(w.peak>=10)return LANEFAM[w.lane][w.branch];return null}
+// 明石商店消耗品：[名称, 说明, 价格系数(×当日征收), 库存, 最早天数, 传说]
+const ITEMS={
+ scale:['损管套件','阻止下一锤的破碎（无论结果都会消耗；狂热中不可用）',.4225,3,3,0],
+ clock:['回溯怀表','离开工作台前撤销上一锤，即使舰装已经碎了',1.53,1,3,1],
+ chalk:['幸运粉笔','下一锤大成功签翻倍',.56,3,6,0],
+ powder:['高爆火药包','下一次普通强化：成功/大成功都变大成功，其余全部变破碎（狂热中不可用）',.9,1,6,1],
+ shard:['冰蓝星屑','狂热充能 +3（狂热中不可用）',.7,3,6,0],
+ incense:['和平熏香','购买时塞壬怒气 -1（每局一次，仅在有失败记录时出现）',2.16,1,9,1],
+ note:['加急补给单','购买时为下一批补给追加 2 件基础舰装',.91,3,6,0],
+};
+const ACH={
+ FIRST10:['还要再敲一下吗？','第一次把舰装锻到 +10'],FIRSTDEATH:['欢迎再次入职','第一次被塞壬处决'],FIRSTFRENZY:['锤子时间','第一次进入狂热'],
+ CLEAR:['下班打卡','撑过第 21 天，完成契约 → 解锁「镰刀与锤子」'],BROKEN10:['手残','一局内打碎 10 件舰装 → 解锁「手滑」'],
+ FRENZY5:['锤不停歇','一局内进入狂热 5 次 → 解锁「不灭灯芯」'],TRIPLE:['不用找了','上缴达到征收额的 3 倍 → 解锁「皇家找零」'],
+ LASTCHANCE:['最后的机会','在两次失败后缴足征收 → 解锁「塞壬的赦免」'],SOLDOUT:['我全都要','一次买空明石的全部商品 → 解锁「流浪商人账簿」'],
+ OVERTIME3:['终身雇佣','契约完成后再缴足 3 次 → 解锁「终身合同」'],
+};
+['citadel','holy','saw','dragon','rune','split','tree','fish','funerary'].forEach(f=>{const k='M_'+f;const rel=Object.keys(R).find(s=>R[s][6]==f)||'undertakers_ledger';ACH[k]=[FAM[f][0]+'大师','把'+FAM[f][0]+'舰装锻到 +20 → 解锁「'+R[rel][0]+'」']});
+R.undertakers_ledger[6]='M_funerary';
+
+// ================= 状态 =================
+let S,M;
+const now=()=>performance.now();
+function loadMeta(){try{M=JSON.parse(localStorage.getItem(METAKEY))}catch(e){}M=M||{};M.ach=M.ach||{};M.forms=M.forms||{};M.seen=M.seen||{};M.runs=M.runs||0;M.best=M.best||0}
+function saveMeta(){localStorage.setItem(METAKEY,JSON.stringify(M))}
+function unlocked(k){const r=R[k];if(!r[5])return true;if(r[5]=='m')return !!M.ach['M_'+r[6]];return !!M.ach[r[6]]}
+function award(id){if(M.ach[id])return;M.ach[id]=1;saveMeta();toast('🏆 成就达成：'+ACH[id][0]);snd('great')}
+function fresh(){return{v:VER,day:1,anger:0,gold:0,cred:0,relics:[],inv:[],sel:-1,uid:1,tab:'shop',paid:0,fails:0,broken:0,frenzies:0,overtime:0,cleared:0,dead:0,
+  shop:[],gift:1,rerolls:0,freeRr:0,hookArmed:0,hookUsed:0,merch:null,incenseUsed:0,cons:{scale:0,clock:0,chalk:0,powder:0,shard:0},armed:{},
+  runT:{B:0,D:0,H:0,S:0,G:0},grudge:0,inherit:{lv:0,ch:0},molar:0,nextExtra:0,ledgerNext:0,journey:0,testament:0,carry:0,
+  wireUsed:0,writ:0,ghost:0,mvisit:0,maxv:0,maxlv:0,log:[]}}
+function has(k){return S.relics.includes(k)}
+function newSword(o){o=o||{};const w={id:S.uid++,lv:0,peak:0,hot:has('lifetime_contract'),ch:0,n:0,lane:o.lane??(Math.random()*3|0),branch:Math.random()<.5?0:1,line:o.line||null,
+  baseAdd:0,gmul:1,flat:0,mul:1,last:null,streakSG:0,streakH:0,streakSame:0,holdS:0,holdG:0,dmgG:0,scorch:0,splice:0,xS:0,xG:0,
+  corner:0,phoenix:0,abyss:0,succ:0,idol:0,spine:0,spineCnt:0,lastBonus:null,nextG:0,nextS:0,nextBk:1,afterDmg:0,first:1,scrap:0,tr:false};
+  if(o.lv){w.lv=w.peak=o.lv}
+  if(o.line)w.lane=0;return w}
+function load(){loadMeta();try{S=JSON.parse(localStorage.getItem(SAVEKEY))}catch(e){S=null}
+  if(!S||S.v!==VER){if(localStorage.getItem('ftal'))localStorage.removeItem('ftal');newRun(true)}else{S.sel=-1;S.fr=null}}
+function save(){if(S)localStorage.setItem(SAVEKEY,JSON.stringify(S))}
+function newRun(quiet){S=fresh();M.runs++;saveMeta();deliver(true);S.shop=rollGift();S.tab='shop';
+  say('新的契约开始了，指挥官……塞壬每天傍晚都会来征收，先从装备箱里挑一个初始设备吧！');save();render()}
+// 每日补给
+function deliver(first){let n=3+(has('supply_permit')?1:0)+S.nextExtra+S.ledgerNext;S.nextExtra=0;S.ledgerNext=0;
+  const lanes=[0,1,2].sort(()=>Math.random()-.5);
+  for(let i=0;i<n;i++){let lv=0;if(has('lifetime_contract')&&!first)lv=7;if(S.journey)lv=Math.max(lv,2);if(i==0&&S.testament){lv=Math.max(lv,S.testament)}
+    S.inv.push(newSword({lane:i<3?lanes[i]:Math.random()*3|0,lv}))}
+  S.journey=0;S.testament=0}
+// ================= 价值 =================
+function shelfMul(w){let m=1;if(has('iron_signet'))m*=1.15;if(has('thorn_weight'))m*=1.1;if(has('black_iron_stone')&&w.lv>=8)m*=1.3;if(has('dragon_signet')&&w.lv>=12)m*=1.5;return m}
+function basePart(w,lv){lv=lv??w.lv;const b=BASE*(w.line?2:1)+w.baseAdd+(has('charcoal_pouch')?80:0)+(has('pocket_hearth')?20*S.paid:0);return b*Math.pow(1.5,lv)*w.gmul}
+function valOf(w){if(w.scrap)return w.scrap;return Math.round((basePart(w)+w.flat)*w.mul*shelfMul(w))}
+// ================= 抽签 =================
+function deck(w,fr){const sk=has('sickle_and_hammer');let t=sk?{B:5,D:5,H:5,S:5,G:5}:{B:9,D:2,H:5,S:12,G:2};
+  const add=(k,n)=>t[k]=Math.max(0,t[k]+n),mv=(a,b,n)=>{const x=Math.min(n,t[a]);t[a]-=x;t[b]+=x};
+  if(has('bent_nail'))add('S',4);if(has('royal_spike'))add('S',6);if(has('lucky_coal'))add('G',1);if(has('golden_nail'))add('G',2);if(has('oracle_die'))add('G',4);
+  if(has('patient_weight'))add('H',3);if(has('sealing_stone'))add('H',2);if(has('eternal_seed'))add('H',6);if(has('abyssal_pearl'))add('D',3);
+  if(has('iron_hoop'))add('B',-2);if(has('butterfingers')){add('B',3);add('G',5)}
+  if(has('worn_whetstone'))mv('H','S',2);if(has('blunt_mallet'))mv('D','S',1);if(has('thorn_weight'))mv('H','D',2);
+  if(has('obsidian_eye')&&w.lv>=8)mv('S','G',2);
+  if(fr&&has('perfect_mana_core'))add('G',6);
+  add('S',w.xS+w.nextS);add('G',w.xG+w.nextG+S.grudge);
+  for(const k in S.runT)add(k,S.runT[k]);
+  if(has('mourning_knot'))add('G',S.fails);
+  if(S.armed.chalk)t.G*=2;
+  return t}
+function breakMul(w){let m=1;if(has('black_knot'))m*=.9;if(has('dragonscale_tongs')&&w.lv>=6)m*=.75;if(w.scorch)m*=1-.03*w.scorch;if(w.splice)m*=1-.15*w.splice;m*=w.nextBk;return m}
+function probs(w,fr){const t=deck(w,fr);const c=curve(w.lv);const bw=c>=1?1e9:(21*c/(1-c))*t.B/9;
+  let tot=bw+t.D+t.H+t.S+t.G;let p={B:bw/tot,D:t.D/tot,H:t.H/tot,S:t.S/tot,G:t.G/tot};
+  if(fr)p.B=0;else{p.B*=breakMul(w)}
+  const rest=p.D+p.H+p.S+p.G,share=1-p.B;if(rest>0)for(const k of'DHSG')p[k]=p[k]/rest*share;
+  if(S.armed.powder&&!fr){p={B:p.B+p.D+p.H,D:0,H:0,S:0,G:p.S+p.G}}
+  // 取整到 1000 张签
+  const ks='BDHSG',raw=ks.split('').map(k=>p[k]*1000),fl=raw.map(Math.floor);let left=1000-fl.reduce((a,b)=>a+b,0);
+  raw.map((x,i)=>[x-fl[i],i]).sort((a,b)=>b[0]-a[0]).forEach(([_,i])=>{if(left>0){fl[i]++;left--}});
+  const o={};ks.split('').forEach((k,i)=>o[k]=fl[i]/1000);return o}
+// ================= 强化 =================
+let lastStrikeAt=0,undoSnap=null,procs=[];
+function speed(fr){let s=1;if(has('worn_grip'))s+=.15;if(fr&&has('possessed_bellows'))s+=.3;if(!fr&&has('leather_loop'))s+=.2;return s}
+function frDur(){return 4000+(has('red_hourglass')?1000:0)+(has('undying_wick')?2000:0)}
+function cur(){return S.inv.find(x=>x.id===S.sel)}
+function inFr(w){return S.fr&&S.fr.id===w.id&&now()<S.fr.end}
+function gainLv(w,n,why){if(n<=0)return;w.lv=Math.min(MAXLV,w.lv+n);if(w.lv>w.peak)w.peak=w.lv;if(why)procs.push(why+' +'+n+'级')}
+function strike(){const w=cur();if(!w||w.scrap)return;if(!w.hot)return heat();
+  const t=now();let fr=inFr(w);if(t-lastStrikeAt<CD/speed(fr)-20)return;lastStrikeAt=t;procs=[];
+  undoSnap={sw:JSON.parse(JSON.stringify(w)),idx:S.inv.indexOf(w),grudge:S.grudge,runT:{...S.runT},gold:S.gold,inherit:{...S.inherit},molar:S.molar,ledgerNext:S.ledgerNext,broken:S.broken,inv:S.inv.length,wire:S.wireUsed};
+  let startFr=false;
+  if(!fr&&w.ch>=CHMAX){startFr=true;fr=true;w.ch=0;S.fr={id:w.id,end:t+frDur()};S.frenzies++;award('FIRSTFRENZY');if(S.frenzies>=5)award('FRENZY5');snd('fr');fx('狂热开始！','#ff7ad9');setTimeout(frTick,50)}
+  const p=probs(w,fr);let r=Math.random(),res='H';for(const k of'BDHSG'){if(r<p[k]){res=k;break}r-=p[k]}
+  // 一次性效果清除
+  const usedPowder=S.armed.powder&&!fr;if(S.armed.chalk){S.armed.chalk=0}if(usedPowder)S.armed.powder=0;
+  if(S.grudge&&(w.nextG||1)){S.grudge=0}
+  w.nextG=0;w.nextS=0;w.nextBk=1;
+  if(S.armed.scale&&!fr){S.armed.scale=0;if(res=='B'){res='H';procs.push('损管套件挡下了破碎')}}
+  w.n++;
+  if(res=='B'){
+    if(has('wirebound_scabbard')&&!S.wireUsed){S.wireUsed=1;res='D';procs.push('缠线炮衣：破碎→受损')}
+    else if(has('unyielding_cornerstone')&&!w.corner){w.corner=1;res='D';procs.push('不屈基石：破碎→受损')}
+    else if(has('giants_spine')&&w.spine>0){w.spine--;res='D';w._spineD=1;procs.push('巨人脊骨：破碎→受损')}
+    else if(has('phoenix_ash')&&!w.phoenix){w.phoenix=1;w.mul*=.6;res='D';procs.push('不死鸟之灰：价值 -40%，免于破碎')}
+  }
+  if(res=='B')return doBreak(w,fr);
+  const prevLast=w.last,v0=valOf(w);let bonusFn=null;
+  const firstNormal=w.first&&!fr;
+  if(res=='S'||res=='G'){
+    if(res=='G'){w.gmul*=2.5/2.25;let lv=fr&&has('glass_hourglass')?3:2;gainLv(w,lv);
+      if(w.holdG){gainLv(w,w.holdG,'封印之心');w.holdG=0}if(w.dmgG){gainLv(w,w.dmgG,'败王印章');w.dmgG=0}
+      if(!fr&&has('silver_tuning_fork'))gainLv(w,1,'银音叉');
+      if(has('cracked_bell')){w.mul*=1.2;bonusFn=()=>{w.mul*=1.2}}
+      if(!fr&&has('lightning_mark')){w.nextBk*=.6;procs.push('雷击纹章：下一锤破碎 -40%')}
+    }else{gainLv(w,1);if(w.holdS){gainLv(w,w.holdS,'小风铃');w.holdS=0}
+      if(has('bronze_cog'))w.xS++;if(has('golden_cog'))w.baseAdd+=30;
+      w.succ++;if(has('ceaseless_driveshaft')&&w.succ%2==0)gainLv(w,1,'永动传动轴')}
+    if(has('dragon_heart')&&w.lv>=7){w.mul*=1.15;bonusFn=()=>{w.mul*=1.15}}
+    if(has('inspection_stamp')){w.flat+=100;bonusFn=()=>{w.flat+=100}}
+    if(w.afterDmg&&has('interlocking_weights'))gainLv(w,2,'咬合砝码');
+    if(firstNormal&&has('first_brand'))gainLv(w,2,'初次烙印');
+    if(has('echo_hammer')&&Math.random()<.25)gainLv(w,1,'回声之锤');
+    if(!fr&&has('scorched_charm')&&w.scorch<6)w.scorch++;
+    w.streakSG++;if(w.streakSG%2==0){if(has('third_hand'))gainLv(w,1,'第三只手');if(has('double_knot')){w.mul*=1.1;bonusFn=()=>{w.mul*=1.1}}}
+    w.streakH=0;w.afterDmg=0;
+  }else if(res=='H'){
+    if(has('heavy_paperweight')){w.flat+=180;bonusFn=()=>{w.flat+=180}}
+    if(has('cold_teacup')){w.mul*=1.06;bonusFn=()=>{w.mul*=1.06}}
+    if(has('eternal_seed'))w.baseAdd+=40;
+    if(has('kings_empty_cup'))w.xG++;
+    if(has('little_wind_bell')&&w.holdS<2)w.holdS++;
+    if(has('sealed_heart')&&w.holdG<4)w.holdG++;
+    if(has('sleeping_ember')&&Math.random()<.7)gainLv(w,1,'沉睡的余烬');
+    if(!fr&&has('chained_hourglass')&&Math.random()<.5&&w.ch<CHMAX){w.ch++;procs.push('锁链沙漏 +1充能')}
+    if(has('red_thread'))w.nextBk*=.8;if(has('closed_third_eye'))w.nextS+=4;if(has('blind_die'))w.nextG+=3;
+    w.streakH++;if(w.streakH%2==0&&has('sealing_stone'))gainLv(w,1,'封印之石');
+    w.streakSG=0;
+  }else if(res=='D'){
+    const spineD=w._spineD;delete w._spineD;
+    const before=basePart(w);let drop=true;
+    if(has('abyssal_pearl')&&w.abyss<2){w.abyss++;drop=false;procs.push('深渊珍珠：不降级')}
+    if(drop&&w.lv>0){w.lv--;const lost=before-basePart(w);if(has('cracked_crown'))w.flat+=lost*.5}
+    if(has('iron_comb'))w.flat+=before*.05;
+    if(has('patched_apron')){w.flat+=140;bonusFn=()=>{w.flat+=140}}
+    if(has('cracked_splice')&&w.splice<4)w.splice++;
+    if(has('defeated_kings_seal'))w.dmgG++;
+    if(has('unbroken_oath')&&Math.random()<.7)gainLv(w,1,'不灭誓约');
+    if(!fr&&has('cracked_wristwatch')&&w.ch<CHMAX){w.ch++;procs.push('裂开的怀表 +1充能')}
+    if(has('blind_die'))w.nextG+=3;
+    if(has('giants_spine')&&!spineD){w.spineCnt++;if(w.spineCnt%2==0){w.spine=1;procs.push('巨人脊骨储存了 1 次保护')}}
+    w.afterDmg=1;w.streakSG=0;w.streakH=0;
+  }
+  if(fr&&has('bell_collar')){w.mul*=1.05;bonusFn=bonusFn||(()=>{w.mul*=1.05})}
+  if(has('soot_censer')&&prevLast&&prevLast!==res)w.baseAdd+=20;
+  if(prevLast===res){w.streakSame++;if(w.streakSame%2==1){if(has('wax_effigy')){w.flat+=150;procs.push('蜡像 +150')}if(has('split_twin_mirror')&&w.lastBonus){w.lastBonus();procs.push('双生裂镜：重复加成')}}}else w.streakSame=0;
+  if(bonusFn)w.lastBonus=bonusFn;
+  if(has('bound_idol')){const tier=Math.floor(w.lv/4);while(w.idol<tier){w.idol++;w.mul*=1.15;procs.push('被缚的神像 +15%')}}
+  w.last=res;
+  // 狂热充能
+  if(!fr){let c=1;if(firstNormal&&has('ember_locket'))c+=2;w.ch=Math.min(CHMAX,w.ch+c)}
+  w.first=0;
+  if(has('seal_of_twins')&&Math.random()<.02){const c=JSON.parse(JSON.stringify(w));c.id=S.uid++;c.tr=false;S.inv.push(c);procs.push('双子之印：复制了一件！')}
+  const nm={G:['大成功','#ff7ad9','great'],S:['成功','#43c98b','ok'],H:['维持','#bfe6ff','hold'],D:['受损','#f0a33a','dmg']}[res];
+  snd('hit');snd(nm[2]);fx(nm[0]+(res=='G'?'！':''),nm[1]);
+  if(res=='G'){react('joy');say(pick1(['哇！闪闪发光的！','大、大成功！嘿嘿~','塞壬看了也要发抖吧！']))}
+  else if(res=='S')say(pick1(['很顺利呢。','再来一下？……还是见好就收？','手感不错哦，指挥官。']));
+  else if(res=='H')say('没有变化……');else{react('sad');say('呜，敲歪了一点……')}
+  postStrike(w);
 }
-function rollShop(first){const pool=Object.keys(RELICS).filter(k=>!S.relics.includes(k));pool.sort(()=>Math.random()-.5);return pool.slice(0,3).map(k=>({k,c:first?0:1+(Math.random()*2|0),sold:false}))}
-// ===== 音效 =====
+function postStrike(w){S.maxv=Math.max(S.maxv,valOf(w));S.maxlv=Math.max(S.maxlv,w.lv);if(w.lv>=10)award('FIRST10');
+  const f=famOf(w);if(f){M.forms[f]=Math.max(M.forms[f]||0,w.peak);if(w.peak>=20)award('M_'+f)}
+  M.best=Math.max(M.best,S.maxv);saveMeta();save();render()}
+function doBreak(w,fr){S.broken++;if(S.broken>=10)award('BROKEN10');snd('brk');fx('破碎！','#e8445a');react('sad');
+  document.body.classList.add('shake');setTimeout(()=>document.body.classList.remove('shake'),300);
+  const peakV=Math.max(valOf(w),w._peakV||0);let msg='碎、碎掉了……指挥官别难过……';
+  if(has('ash_sieve')){S.gold+=500;procs.push('灰烬筛子 +500 资金')}
+  if(has('undertakers_chalice')){const s=newSword();s.scrap=Math.round(peakV*.3);s.tr=true;S.inv.push(s);procs.push('残骸 '+s.scrap+' 已放入征收窗口')}
+  if(has('grudge_nail')&&w.lv){S.grudge+=w.lv;procs.push('怨念铆钉：储存 '+w.lv+' 张大成功签')}
+  let rate=(has('broken_holy_sword')?.3:0)+(has('dawn_scabbard')?.4:0);
+  if(rate&&w.lv>0){S.inherit.lv+=Math.floor(w.lv*rate);S.inherit.ch+=(has('broken_holy_sword')?3:0)+(has('dawn_scabbard')?4:0);procs.push('传承：下一件 +0 舰装将继承')}
+  if(has('hungry_molar')&&w.lv>=4){S.molar+=4}
+  if(has('undertakers_ledger')&&w.lv>=7&&S.ledgerNext<2)S.ledgerNext++;
+  if(has('ossuary_kings_scabbard')&&w.lv>=7&&w.last){S.runT[w.last]++;procs.push('骸骨王的炮衣：永久 +1 张'+{B:'破碎',D:'受损',H:'维持',S:'成功',G:'大成功'}[w.last]+'签')}
+  if(S.fr&&S.fr.id===w.id)S.fr=null;
+  S.inv=S.inv.filter(x=>x!==w);S.broken_pending=w.id;say(msg);applyInherit();
+  if(!S.cons.clock){S.sel=-1;undoSnap=null}
+  save();render()}
+function applyInherit(){if(!S.inherit.lv&&!S.inherit.ch&&!S.molar)return;const t=S.inv.find(x=>!x.scrap&&!x.line&&x.lv==0&&x.n==0&&x.id!==S.sel);if(!t)return;
+  if(S.inherit.lv){gainLv(t,S.inherit.lv);t.ch=Math.min(CHMAX,t.ch+S.inherit.ch)}if(S.molar)t.xS+=S.molar;S.inherit={lv:0,ch:0};S.molar=0}
+function frTick(){if(!S.fr)return render();const w=S.inv.find(x=>x.id===S.fr.id);if(!w){S.fr=null;return render()}
+  const left=S.fr.end-now();const bar=document.querySelector('.frbar div');if(bar)bar.style.width=Math.max(0,left/frDur()*100)+'%';
+  if(left<=0){S.fr=null;if(has('headless_bell')){procs=[];gainLv(w,1,'无首之钟');}say('狂热结束了~');postStrike(w);return}
+  requestAnimationFrame(frTick)}
+function undo(){if(!S.cons.clock||!undoSnap)return;S.cons.clock--;const u=undoSnap;
+  S.inv=S.inv.filter(x=>x.id!==u.sw.id&&!(x.scrap&&S.inv.indexOf(x)>=u.inv));S.inv.splice(Math.min(u.idx,S.inv.length),0,u.sw);
+  Object.assign(S,{grudge:u.grudge,runT:u.runT,gold:u.gold,inherit:u.inherit,molar:u.molar,ledgerNext:u.ledgerNext,broken:u.broken,wireUsed:u.wire});
+  S.sel=u.sw.id;undoSnap=null;procs=['时间倒流~'];say('回溯怀表转了一圈……刚才那锤不算！');snd('buy');save();render()}
+function heat(){const w=cur();if(!w||w.hot||heating)return;heating=1;snd('heat');say('加热中……呼，好烫。');render();
+  setTimeout(()=>{heating=0;w.hot=true;say('热好了！敲吧，指挥官。');save();render()},1600)}
+let heating=0;
+function useItem(k){const w=cur();const fr=w&&inFr(w);if(!S.cons[k])return;
+  if(fr&&k!='chalk'&&k!='clock')return toast('狂热中不能使用');
+  if(k=='clock')return undo();
+  if(k=='shard'){if(!w)return;S.cons.shard--;w.ch=Math.min(CHMAX,w.ch+3);snd('buy');save();return render()}
+  if(S.armed[k])return toast('已经准备好了');S.cons[k]--;S.armed[k]=1;snd('buy');save();render()}
+// ================= 装备箱 / 商人 =================
+function rollGift(){return STARTER.slice().sort(()=>Math.random()-.5).slice(0,3).map(k=>({k,c:0}))}
+function poolFor(rar){return Object.keys(R).filter(k=>R[k][2]==rar&&R[k][3]<=S.day&&!has(k)&&unlocked(k))}
+function rollShop(){const o=shopOdds(S.day),out=[];
+  for(let i=0;i<3;i++){let x=Math.random()*100,rar=x<o[0]?0:x<o[0]+o[1]?1:2;let pool=poolFor(rar).filter(k=>!out.some(z=>z.k==k));
+    for(let d=rar;!pool.length&&d>=0;d--)pool=poolFor(d).filter(k=>!out.some(z=>z.k==k));if(!pool.length)continue;
+    const wts=pool.map(k=>RECOVERY.includes(k)&&S.day<=6?2.5:1);let s=Math.random()*wts.reduce((a,b)=>a+b,0),pick=pool[0];
+    for(let j=0;j<pool.length;j++){if((s-=wts[j])<=0){pick=pool[j];break}}out.push({k:pick,c:R[pick][4]})}
+  out.forEach(z=>M.seen[z.k]=1);saveMeta();return out}
+const rerollCost=()=>Math.round(Math.max(150,quotaOf(S.day)*.15)*Math.pow(2.5,S.rerolls)/10)*10;
+function reroll(){if(S.gift)return;const free=has('worn_voucher')&&!S.freeRr;if(!free){if(S.gold<rerollCost())return toast('资金不够');S.gold-=rerollCost();S.rerolls++}else S.freeRr=1;
+  S.shop=rollShop();if(has('collectors_hook')&&!S.hookUsed)S.hookArmed=1;snd('buy');save();render()}
+function buyRelic(i){const r=S.shop[i];if(!r||r.sold)return;if(S.relics.length>=8)return toast('设备架满了（8/8），先到「设备架」丢弃一个');
+  if(r.c>S.cred)return toast('物资券不够（把舰装投入装备箱换券）');S.cred-=r.c;S.relics.push(r.k);r.sold=1;
+  if(S.gift){S.gift=0;S.shop=[];toast('初始设备已选择，明天起装备箱正式营业')}
+  if(r.k=='lifetime_contract')S.inv.forEach(x=>x.hot=true);if(r.k=='silver_supply_writ')S.writ=1;if(r.k=='wandering_ghosts_ledger')S.ghost=1;
+  snd('great');react('joy');say('拿到了「'+R[r.k][0]+'」！');save();render()}
+function feed(id){const w=S.inv.find(x=>x.id===id);if(!w||w.scrap)return;if(w.lv>0&&!confirm('这件是 +'+w.lv+'，装备箱不论等级都只给 1 张券，确定？'))return;
+  let c=1;if(S.hookArmed&&!S.hookUsed&&w.lv==0&&w.n==0){c=2;S.hookUsed=1;S.hookArmed=0;procs=['收藏家的钩子：这件算 2 张券']}
+  S.cred+=c;S.inv=S.inv.filter(x=>x!==w);if(S.sel==id)S.sel=-1;snd('buy');say('装备箱咕噜咕噜地吞下去了。');save();render()}
+function drop(k){if(!confirm('丢弃「'+R[k][0]+'」？不会返还任何东西。'))return;S.relics=S.relics.filter(x=>x!==k);save();render()}
+const isMerchDay=d=>d%3==0;
+function makeMerch(){S.mvisit++;const q=quotaOf(S.day),v=S.mvisit,d=S.day,o=[];const pr=x=>Math.round(x/10)*10;
+  let n=v==1?2:v<=3?3:v<=7?4:5;if(S.writ)n+=2;o.push({k:'sword',name:'基础舰装 (+0)',p:pr(Math.max(700,q*.4)),stock:n,bought:0});
+  const line=MERCH_LINES[Math.random()*3|0],slv=d<9?0:d<15?2:4;o.push({k:'special',line,lv:slv,name:FAM[line][0]+'·'+FAM[line][1+(slv>>1)]+' (+'+slv+')',p:pr(Math.max(1100,q*.65*1.75)*(slv==2?1.6:slv==4?2.4:1)),stock:1,bought:0});
+  let slots=(d<6?4:d<15?5:6)+(S.ghost?2:0)-2;const add=k=>{const it=ITEMS[k];o.push({k,name:it[0],p:pr(q*it[2]),stock:it[3],bought:0});slots--};
+  if(d==3){add('scale');add('clock')}
+  let pool=Object.keys(ITEMS).filter(k=>ITEMS[k][4]<=d&&!o.some(z=>z.k==k)&&!(k=='incense'&&(S.incenseUsed||!S.anger)));pool.sort(()=>Math.random()-.5);
+  for(const k of pool){if(slots<=0)break;if(ITEMS[k][5]&&Math.random()>.22)continue;add(k)}
+  for(const k of pool){if(slots<=0)break;if(!o.some(z=>z.k==k)&&!ITEMS[k][5])add(k)}
+  S.merch=o}
+function buyM(i){const it=S.merch[i];if(it.bought>=it.stock)return;const p=it.p*Math.pow(3,it.bought);if(S.gold<p)return toast('资金不够');S.gold-=p;it.bought++;
+  if(it.k=='sword')S.inv.push(newSword());else if(it.k=='special')S.inv.push(newSword({line:it.line,lv:it.lv}));
+  else if(it.k=='note')S.nextExtra+=2;else if(it.k=='incense'){S.anger=Math.max(0,S.anger-1);S.incenseUsed=1}else S.cons[it.k]++;
+  if(S.merch.every(z=>z.bought>=z.stock))award('SOLDOUT');snd('buy');save();render()}
+// ================= 征收 =================
+function quotaNow(){let q=quotaOf(S.day);if(has('sealed_rebate'))q*=.9;if(has('royal_change'))q-=Math.min(S.carry,q*.3);return Math.round(q)}
+function bell(){const q=quotaNow(),tr=S.inv.filter(x=>x.tr),tv=tr.reduce((a,x)=>a+valOf(x),0);
+  if(!confirm('上缴 '+tv.toLocaleString()+' / 需要 '+q.toLocaleString()+'\n敲钟结束今天？'))return;
+  S.fr=null;snd('bell');const ok=tv>=q;let msg='';
+  if(ok){S.paid++;msg='塞壬清点了贡品……「哼，够了。」<br>上缴 <b>'+tv.toLocaleString()+'</b> ≥ '+q.toLocaleString();
+    if(S.anger==2)award('LASTCHANCE');if(tv>=q*3)award('TRIPLE');
+    if(has('tax_tally')){S.cred++;msg+='<br>税务计数板：+1 物资券'}
+    if(has('journeyman_badge'))S.journey=1;
+    if(has('smiths_testament')){const b=Math.max(0,...tr.filter(x=>!x.scrap).map(x=>x.lv));if(b>=10){S.testament=Math.floor(b*.3);msg+='<br>工匠遗书：明天一件舰装从 +'+S.testament+' 开始'}}
+    S.carry=has('royal_change')?(tv-q)*.3:0;if(S.cleared)S.overtime++;if(S.overtime>=3)award('OVERTIME3');react('joy')}
+  else{S.anger++;S.fails++;S.carry=0;snd('fail');react('sad');msg='塞壬不满地敲了敲栏杆……<br>只缴了 '+tv.toLocaleString()+' / '+q.toLocaleString()+'<br><b style="color:#e8445a">怒气 '+S.anger+'/3</b>'}
+  S.gold+=tv;msg+='<br>上缴的舰装全部折算成资金返还：+'+tv.toLocaleString();
+  S.inv=S.inv.filter(x=>!x.tr);S.sel=-1;undoSnap=null;
+  if(S.anger>=3&&has('dragons_pardon')){S.relics=S.relics.filter(x=>x!='dragons_pardon');S.anger=2;msg+='<br><b>塞壬的赦免生效了！怒气回到 2，赦免消失。</b>'}
+  if(S.anger>=3){S.dead=1;award('FIRSTDEATH');save();return modal('作战失败','<p>'+msg+'</p>塞壬的耐心耗尽了……港区被封锁。<br>坚持到第 '+S.day+' 天，最高单件价值 '+S.maxv.toLocaleString()+'，最高 +'+S.maxlv+'，打碎 '+S.broken+' 件。','再来一局',()=>newRun())}
+  const clearNow=S.day==DAYS&&!S.cleared;if(clearNow){S.cleared=1;award('CLEAR')}
+  S.day++;S.rerolls=0;S.freeRr=0;S.hookArmed=0;S.hookUsed=0;S.wireUsed=0;
+  deliver();S.shop=rollShop();S.merch=null;if(isMerchDay(S.day))makeMerch();S.tab=isMerchDay(S.day)?'merch':'shop';
+  say(isMerchDay(S.day)?'明石来了喵~ 今天可以用资金买东西！':(ok?'新的一天，补给送来了。':'塞壬把舰装扔进来了……好凶。'));save();
+  if(clearNow)return modal('契约完成！🎉','<p>'+msg+'</p>撑过了全部 21 天！塞壬不情不愿地退走了。<br>最高单件价值 '+S.maxv.toLocaleString()+'，怒气 '+S.anger+'/3。<br>可以继续锻造进入延长期（征收每天 +20%）。','继续延长期',render);
+  modal('第 '+(S.day-1)+' 天结算','<p>'+msg+'</p>明天征收：<b>'+quotaNow().toLocaleString()+'</b>','下一天',render)}
+// ================= 音效 =================
 let AC;function snd(type){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const t=AC.currentTime;
  const tone=(f,d,w='square',v=.15,dt=0,f2)=>{const o=AC.createOscillator(),g=AC.createGain();o.type=w;o.frequency.setValueAtTime(f,t+dt);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+dt+d);g.gain.setValueAtTime(v,t+dt);g.gain.exponentialRampToValueAtTime(.001,t+dt+d);o.connect(g).connect(AC.destination);o.start(t+dt);o.stop(t+dt+d)};
  const noise=(d,v=.3)=>{const b=AC.createBuffer(1,AC.sampleRate*d,AC.sampleRate),a=b.getChannelData(0);for(let i=0;i<a.length;i++)a[i]=(Math.random()*2-1)*(1-i/a.length);const s=AC.createBufferSource(),g=AC.createGain();g.gain.value=v;s.buffer=b;s.connect(g).connect(AC.destination);s.start()};
  ({hit:()=>{noise(.08,.4);tone(900,.15,'triangle',.2)},great:()=>{tone(660,.1,'triangle',.2);tone(990,.25,'triangle',.2,.08);tone(1320,.3,'sine',.15,.16)},ok:()=>tone(780,.18,'triangle',.18),hold:()=>tone(300,.12,'sine',.12),
-  dmg:()=>tone(400,.25,'sawtooth',.12,0,150),brk:()=>{noise(.5,.5);tone(200,.5,'sawtooth',.2,0,40)},heat:()=>{noise(.6,.12);tone(120,.6,'sine',.1,0,240)},
+  dmg:()=>tone(400,.25,'sawtooth',.12,0,150),brk:()=>{noise(.5,.5);tone(200,.5,'sawtooth',.2,0,40)},heat:()=>{noise(1.2,.12);tone(120,1.2,'sine',.1,0,240)},
   bell:()=>{tone(880,1.2,'sine',.2);tone(1320,1,'sine',.08)},fail:()=>{tone(220,.5,'square',.15,0,110);tone(160,.7,'square',.12,.3,80)},buy:()=>{tone(1200,.08,'square',.1);tone(1600,.12,'square',.1,.07)},fr:()=>{for(let i=0;i<5;i++)tone(500+i*150,.12,'square',.1,i*.05)}})[type]()}catch(e){}}
-// ===== 画面 =====
-const $=s=>document.querySelector(s);
-let speech='';function say(t){speech=t}
-function fx(t,c){const d=document.createElement('div');d.className='fx';d.textContent=t;d.style.color=c;document.body.appendChild(d);setTimeout(()=>d.remove(),1000)}
-const LAFFEY=`<svg class="who" viewBox="0 0 120 140"><g id="ch"><path d="M38 40 L28 0 L50 34Z M82 40 L92 0 L70 34Z" fill="#fff" stroke="#e9a3b8" stroke-width="3"/><path d="M20 140 Q22 95 60 92 Q98 95 100 140Z" fill="#ffffff" stroke="#9fb6d6"/><path d="M45 100 L60 122 L75 100" fill="#e2445c"/><ellipse cx="60" cy="62" rx="36" ry="34" fill="#ffe9de"/><path d="M22 66 Q20 22 60 24 Q100 22 98 66 Q92 40 78 44 Q66 30 56 44 Q40 38 22 66Z" fill="#f2f2fa" stroke="#c7cde6"/><path d="M24 64 Q18 100 30 118 L34 70Z M96 64 Q102 100 90 118 L86 70Z" fill="#f2f2fa" stroke="#c7cde6"/><ellipse cx="46" cy="66" rx="6" ry="8" fill="#d6304e"/><ellipse cx="74" cy="66" rx="6" ry="8" fill="#d6304e"/><circle cx="44" cy="63" r="2" fill="#fff"/><circle cx="72" cy="63" r="2" fill="#fff"/><path id="mouth" d="M55 82 Q60 85 65 82" stroke="#a33" fill="none" stroke-width="2"/><ellipse cx="38" cy="78" rx="5" ry="2.5" fill="#ffb3c1" opacity=".7"/><ellipse cx="82" cy="78" rx="5" ry="2.5" fill="#ffb3c1" opacity=".7"/></g></svg>`;
-const SIREN=`<svg class="siren" viewBox="0 0 120 150"><path d="M10 150 Q20 90 60 80 Q100 90 110 150Z" fill="#222a3a"/><ellipse cx="60" cy="52" rx="30" ry="32" fill="#cfd8e6"/><path d="M28 50 Q30 10 60 14 Q92 10 92 50 L98 110 Q80 70 78 40 Q60 30 42 40 Q40 70 22 110Z" fill="#20283a"/><path d="M38 52 l12 4 M82 52 l-12 4" stroke="#ff2d55" stroke-width="5" stroke-linecap="round"/><path d="M50 72 Q60 66 70 72" stroke="#555" fill="none" stroke-width="2"/><path d="M30 24 L20 4 L42 18Z M90 24 L100 4 L78 18Z" fill="#3a4766"/><circle cx="60" cy="110" r="8" fill="#ff2d55" opacity=".8"/></svg>`;
-function gearSVG(w){const c=w?['#bfe6ff','#ffd77a','#ff9bd2','#ff6b6b'][Math.min(3,w.lv/4|0)]:'#567';return `<svg class="gear" viewBox="0 0 64 64"><rect x="6" y="34" width="52" height="14" rx="4" fill="#3b5f8f"/><rect x="18" y="24" width="28" height="14" rx="3" fill="#5b86bd"/><rect x="40" y="27" width="22" height="5" rx="2" fill="${c}"/><rect x="40" y="33" width="22" height="5" rx="2" fill="${c}"/>${w&&w.hot?'<path d="M14 22 q4-8 0-14 q8 6 4 14z" fill="#ff8a3d"/>':''}${w&&w.fr>0?'<circle cx="32" cy="40" r="28" fill="none" stroke="#ff7ad9" stroke-width="3"/>':''}</svg>`}
-function render(){
-  const w=S.inv.find(x=>x.id===S.sel);const q=quota(S.day)*(has('r_quota')?.88:1)|0;
-  const tv=S.inv.filter(x=>x.tr).reduce((a,x)=>a+valOf(x),0);
-  let h=`<div class="bar"><div>第 <b>${S.day}</b>/${DAYS} 天</div><div>征收 <b>${q.toLocaleString()}</b></div><div class="anger">怒气${[0,1,2].map(i=>`<span class="${i<S.anger?'on':''}"></span>`).join('')}</div><div>资金 <b>${S.gold}</b></div><div>物资券 <b>${S.cred}</b></div><div>损管 <b>${S.scale}</b> 撤销 <b>${S.rew}</b></div></div>
-  <div class="scene" id="scene">${SIREN}${LAFFEY}<div class="speech">${speech||'指挥官，选一件舰装，先加热再强化吧……'}</div></div>
-  <div class="anvil">`;
-  if(w){const o=odds(w.lv,w);const col=['#ff7ad9','#43c98b','#8aa3c2','#f0a33a','#e8445a'],nm=['大成功','成功','维持','受损','破碎'];
-    h+=`<div class="cur">${gearSVG(w)}<div style="flex:1"><b>${w.n}</b> <span style="color:#ffd77a;font-size:20px;font-weight:800">+${w.lv}</span><br>价值 <b style="color:#ffd77a">${valOf(w).toLocaleString()}</b> → 成功后 ${Math.round(valOf(w)*1.5).toLocaleString()}${w.fr>0?`<br><b style="color:#ff7ad9">狂热中！剩余 ${w.fr} 锤不会破碎</b>`:''}${S.sure?'<br><b style="color:#43c98b">图纸生效：下一锤必定成功</b>':''}</div></div>
-    <div class="odds">${o.map((p,i)=>p>0.001?`<div style="width:${p*100}%;background:${col[i]}">${p>.07?Math.round(p*1000)/10+'%':''}</div>`:'').join('')}</div>
-    <div class="legend">${nm.map((n,i)=>`<span><i style="background:${col[i]}"></i>${n} ${(o[i]*100).toFixed(1)}%</span>`).join('')}</div>
-    <div class="charge ${w.fr>0?'fr':''}">${Array.from({length:chMax()},(_,i)=>`<i class="${i<w.ch||w.fr>0?'on':''}"></i>`).join('')}</div>
-    <div class="row">${w.hot?`<button class="btn gold big" onclick="strike()">🔨 强化</button>`:`<button class="btn red big" onclick="heat()">🔥 加热</button>`}</div>
-    <div class="row" style="margin-top:6px"><button class="btn" onclick="undo()" ${S.rew&&S.last?'':'disabled'}>↶ 撤销</button><button class="btn" onclick="toggleTr(${w.id})">${w.tr?'取消上缴':'放入征收窗口'}</button><button class="btn" onclick="sell(${w.id})">投入装备箱</button></div>`;
-  }else h+=`<div style="text-align:center;padding:14px;opacity:.8">点击下方仓库中的舰装放上工作台</div>`;
-  h+=`</div><h3>仓库（${S.inv.length}） <small>征收窗口：${tv.toLocaleString()} / ${q.toLocaleString()}</small></h3><div class="cards">`+
-   S.inv.map(x=>`<div class="card ${x.id===S.sel?'sel':''} ${x.tr?'tr':''}" onclick="pick(${x.id})">${x.hot?'<span class="hot">🔥</span>':''}<div class="lv">+${x.lv}</div>${x.n}<br><b>${valOf(x).toLocaleString()}</b>${x.tr?'<br>📦待上缴':''}${x.ch&&!x.fr?`<br><small>狂热 ${x.ch}/${chMax()}</small>`:''}</div>`).join('')+`</div>
-  <div class="tabs"><button class="btn ${S.tab=='relic'?'on':''}" onclick="tab('relic')">明石装备箱</button><button class="btn ${S.tab=='shop'?'on':''}" onclick="tab('shop')">明石商店${shopDay()?'':'🔒'}</button><button class="btn ${S.tab=='mine'?'on':''}" onclick="tab('mine')">我的设备(${S.relics.length}/8)</button></div><div class="panel">`;
-  if(S.tab=='relic'){h+=`<small>${S.starter?'第一天：免费挑选 1 个初始设备':'把舰装投入装备箱换物资券，再用物资券兑换设备（不论等级，一件=1券）'}</small>`;
-    h+=S.shop.map((r,i)=>`<div class="relic"><div style="flex:1"><b>${RELICS[r.k][0]}</b><br>${RELICS[r.k][1]}</div>${r.sold?'已兑换':`<button class="btn gold" onclick="buyRelic(${i})">${r.c?r.c+' 券':'免费'}</button>`}</div>`).join('');
-    if(!S.starter)h+=`<button class="btn" onclick="reroll()">🔄 刷新（${S.reroll} 资金）</button>`;}
-  else if(S.tab=='shop'){h+=shopDay()?SHOP.map(s=>`<div class="relic"><div style="flex:1"><b>${s[1]}</b></div><button class="btn gold" onclick="buy('${s[0]}')">${s[2]} 资金</button></div>`).join(''):`<small>明石每 3 天来一次（第 3、6、9…天），今天不营业喵~</small>`}
-  else h+=S.relics.length?S.relics.map(k=>`<div class="relic"><div style="flex:1"><b>${RELICS[k][0]}</b><br>${RELICS[k][1]}</div><button class="btn" onclick="drop('${k}')">丢弃</button></div>`).join(''):'<small>还没有设备</small>';
-  h+=`</div><div style="text-align:center;margin-top:10px"><button class="btn" onclick="help()">📖 说明</button> <button class="btn" onclick="if(confirm('放弃当前进度重新开始？'))newRun()">重新开始</button></div>
-  <div class="foot"><div class="in"><button class="btn red big" style="width:100%" onclick="bell()">🔔 敲钟结束今天（上缴 ${tv.toLocaleString()}）</button></div></div>`;
-  $('#app').innerHTML=h;
-}
-const chMax=()=>has('r_fr7')?7:10;
-const shopDay=()=>S.day%3===0;
-function tab(t){S.tab=t;render()}
-function pick(id){S.sel=S.sel===id?-1:id;S.last=null;snd('hold');render()}
-function heat(){const w=cur();if(!w)return;snd('heat');say('加热中……呼，好烫。');render();const b=document.querySelector('.big');b.disabled=true;b.textContent='🔥 加热中…';setTimeout(()=>{w.hot=true;say('热好了！放上铁砧，敲吧，指挥官。');save();render()},1200)}
-function cur(){return S.inv.find(x=>x.id===S.sel)}
-function strike(){const w=cur();if(!w||!w.hot)return;
-  S.last={id:w.id,lv:w.lv,ch:w.ch,fr:w.fr,bonus:w.bonus};
-  const startFr=w.ch>=chMax()&&!w.fr;
-  if(startFr){w.fr=has('r_frlong')?10:7;w.ch=0;snd('fr');fx('狂热开始！','#ff7ad9')}
-  const o=odds(w.lv,w);let r=Math.random(),i=0;for(;i<5;i++){if(r<o[i])break;r-=o[i]}if(i>4)i=2;
-  if(S.sure){S.sure=0;if(i>1)i=1}
-  if(i==4&&S.scale){S.scale--;i=2;fx('损管挡下了！','#43c98b')}
-  snd('hit');
-  if(i==0){w.lv+=2;w.bonus*=1.0;w.lv=w.lv;snd('great');fx('大成功！+2','#ff7ad9');say(pick1(['哇！闪闪发光的！','这下塞壬也要吓一跳了，嘿嘿~','好厉害……']))}
-  else if(i==1){w.lv++;snd('ok');fx('成功 +1','#43c98b');say(pick1(['很顺利呢。','再来一下？……还是收手？','嗯，手感不错。']))}
-  else if(i==2){if(has('r_hold'))w.bonus*=1.08;snd('hold');fx('维持','#bfe6ff');say('没变化……')}
-  else if(i==3){w.lv=Math.max(0,w.lv-1);snd('dmg');fx('受损 -1','#f0a33a');say('呜，敲歪了一点……')}
-  else{snd('brk');fx('破碎！','#e8445a');document.body.classList.add('shake');setTimeout(()=>document.body.classList.remove('shake'),300);
-    if(has('r_scrap')){const g=valOf(w)*.4|0;S.gold+=g;say(`碎掉了……回收了 ${g} 资金。`)}else say('碎、碎掉了……指挥官别难过……');
-    S.inv=S.inv.filter(x=>x!==w);S.sel=-1;S.last=null;save();render();return}
-  if(w.fr>0)w.fr--;else w.ch=Math.min(chMax(),w.ch+1);
-  if(w.ch>=chMax()&&!w.fr)say('狂热充满了！下一锤开始的几锤都不会碎！');
-  S.maxv=Math.max(S.maxv,valOf(w));save();render()}
+// ================= 画面 =================
+const $=s=>document.querySelector(s);let speech='';function say(t){speech=t}
 function pick1(a){return a[Math.random()*a.length|0]}
-function undo(){if(!S.rew||!S.last)return;const w=S.inv.find(x=>x.id===S.last.id);if(!w)return;Object.assign(w,{lv:S.last.lv,ch:S.last.ch,fr:S.last.fr,bonus:S.last.bonus});S.rew--;S.last=null;say('时间倒流~刚才那锤不算！');snd('buy');save();render()}
+function fx(t,c){const d=document.createElement('div');d.className='fx';d.textContent=t;d.style.color=c;document.body.appendChild(d);setTimeout(()=>d.remove(),1000)}
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
+let reactCls='';function react(c){reactCls=c;setTimeout(()=>{reactCls='';const e=$('.who');if(e)e.classList.remove('joy','sad')},1100)}
+const GIRL=()=>`<svg class="who ${reactCls}" viewBox="0 0 120 140"><g class="ear"><path d="M38 40 L26 0 L50 34Z M82 40 L94 0 L70 34Z" fill="#fff" stroke="#e9a3b8" stroke-width="3"/></g><path d="M20 140 Q22 95 60 92 Q98 95 100 140Z" fill="#fff" stroke="#9fb6d6"/><path d="M45 100 L60 122 L75 100" fill="#e2445c"/><rect x="74" y="104" width="22" height="7" rx="2" fill="#8a6b3c" transform="rotate(-30 85 107)"/><rect x="88" y="90" width="14" height="12" rx="2" fill="#5b6f88" transform="rotate(-30 95 96)"/><ellipse cx="60" cy="62" rx="36" ry="34" fill="#ffe9de"/><path d="M22 66 Q20 22 60 24 Q100 22 98 66 Q92 40 78 44 Q66 30 56 44 Q40 38 22 66Z" fill="#f2f2fa" stroke="#c7cde6"/><path d="M24 64 Q18 100 30 118 L34 70Z M96 64 Q102 100 90 118 L86 70Z" fill="#f2f2fa" stroke="#c7cde6"/><ellipse cx="46" cy="66" rx="6" ry="8" fill="#d6304e"/><ellipse cx="74" cy="66" rx="6" ry="8" fill="#d6304e"/><circle cx="44" cy="63" r="2" fill="#fff"/><circle cx="72" cy="63" r="2" fill="#fff"/><g class="lid" style="transform-origin:60px 58px"><rect x="38" y="57" width="16" height="17" fill="#ffe9de"/><rect x="66" y="57" width="16" height="17" fill="#ffe9de"/></g><path d="${reactCls=='sad'?'M55 85 Q60 81 65 85':'M55 82 Q60 86 65 82'}" stroke="#a33" fill="none" stroke-width="2"/><ellipse cx="38" cy="78" rx="5" ry="2.5" fill="#ffb3c1" opacity=".7"/><ellipse cx="82" cy="78" rx="5" ry="2.5" fill="#ffb3c1" opacity=".7"/></svg>`;
+const SIREN=()=>`<svg class="siren ${S.anger?'mad':''}" viewBox="0 0 120 150"><path d="M10 150 Q20 90 60 80 Q100 90 110 150Z" fill="#222a3a"/><ellipse cx="60" cy="52" rx="30" ry="32" fill="#cfd8e6"/><path d="M28 50 Q30 10 60 14 Q92 10 92 50 L98 110 Q80 70 78 40 Q60 30 42 40 Q40 70 22 110Z" fill="#20283a"/><path class="eye" d="M38 ${50-S.anger*2} l12 ${4+S.anger*2} M82 ${50-S.anger*2} l-12 ${4+S.anger*2}" stroke="#ff2d55" stroke-width="5" stroke-linecap="round"/><path d="M50 72 Q60 ${66+S.anger*3} 70 72" stroke="#555" fill="none" stroke-width="2"/><path d="M30 24 L20 4 L42 18Z M90 24 L100 4 L78 18Z" fill="#3a4766"/><circle cx="60" cy="110" r="8" fill="#ff2d55" opacity=".8"/></svg>`;
+function gearSVG(w){if(w.scrap)return `<svg class="gear" viewBox="0 0 64 64"><path d="M10 50 L20 30 L30 44 L40 26 L54 50Z" fill="#6b7a90"/></svg>`;
+  const f=famOf(w);const pal={citadel:'#9fb6d6',holy:'#ffd77a',saw:'#c0c8d0',dragon:'#ff6b6b',rune:'#8fe3ff',split:'#9be27a',tree:'#ffb7d5',fish:'#6fd0ff',funerary:'#a08cff'};const c=pal[f]||['#bfe6ff','#ffd77a'][w.lv>=6?1:0];
+  return `<svg class="gear" viewBox="0 0 64 64"><rect x="6" y="36" width="52" height="14" rx="4" fill="#3b5f8f"/><rect x="16" y="24" width="30" height="15" rx="3" fill="#5b86bd"/><rect x="40" y="26" width="${16+Math.min(8,w.peak/2)}" height="5" rx="2" fill="${c}"/><rect x="40" y="33" width="${16+Math.min(8,w.peak/2)}" height="5" rx="2" fill="${c}"/>${w.peak>=10?`<circle cx="24" cy="31" r="4" fill="${c}"/>`:''}${w.hot?'<path d="M12 22 q4-8 0-14 q8 6 4 14z" fill="#ff8a3d"/>':''}</svg>`}
+const COL={G:'#ff7ad9',S:'#43c98b',H:'#8aa3c2',D:'#f0a33a',B:'#e8445a'},NM={G:'大成功',S:'成功',H:'维持',D:'受损',B:'破碎'};
+function render(){
+  const w=cur(),q=quotaNow(),tv=S.inv.filter(x=>x.tr).reduce((a,x)=>a+valOf(x),0),fr=w&&inFr(w);
+  let h=`<div class="bar"><div>第 <b>${S.day}</b>${S.day<=DAYS?'/'+DAYS:'（延长）'} 天</div><div>征收 <b>${q.toLocaleString()}</b></div><div class="anger">怒气${[0,1,2].map(i=>`<span class="${i<S.anger?'on':''}"></span>`).join('')}</div><div>资金 <b>${S.gold.toLocaleString()}</b></div><div>物资券 <b>${S.cred}</b></div><div>窗口 <b style="color:${tv>=q?'#43c98b':'#ffd77a'}">${tv.toLocaleString()}</b></div></div>
+  <div class="scene"><div class="wave"></div>${SIREN()}${GIRL()}<div class="speech">${speech||'指挥官，选一件舰装，先加热再强化吧……'}</div></div><div class="anvil">`;
+  if(w&&!w.scrap){const o=probs(w,fr||w.ch>=CHMAX);
+    h+=`<div class="cur">${gearSVG(w)}<div style="flex:1;font-size:13px"><b>${formName(w)}</b> <span style="color:#ffd77a;font-size:20px;font-weight:800">+${w.lv}</span>${famOf(w)?'<span class="tag">'+FAM[famOf(w)][0]+'</span>':''}<br>价值 <b style="color:#ffd77a">${valOf(w).toLocaleString()}</b>${w.hot?'':' · <b style="color:#ff8a3d">需先加热</b>'}${w.ch>=CHMAX&&!fr?'<br><b style="color:#ff7ad9">狂热已充满：下一锤开始狂热！</b>':''}</div></div>
+    <div class="odds">${'GSHDB'.split('').map(k=>o[k]>0?`<div style="width:${o[k]*100}%;background:${COL[k]}">${o[k]>.07?(o[k]*100).toFixed(1)+'%':''}</div>`:'').join('')}</div>
+    <div class="legend">${'GSHDB'.split('').map(k=>`<span><i style="background:${COL[k]}"></i>${NM[k]} ${(o[k]*100).toFixed(1)}%</span>`).join('')}</div>
+    ${fr?`<div class="frbar"><div style="width:100%"></div></div>`:`<div class="charge">${Array.from({length:CHMAX},(_,i)=>`<i class="${i<w.ch?'on':''}"></i>`).join('')}</div>`}
+    <div class="procs">${procs.join(' · ')}</div>
+    <div class="row">${w.hot?`<button class="btn ${fr?'pink':'gold'} big" onpointerdown="strike();event.preventDefault()">🔨 ${fr?'狂热连打！':'强化'}</button>`:`<button class="btn red big" onclick="heat()" ${heating?'disabled':''}>🔥 ${heating?'加热中…':'加热'}</button>`}</div>
+    <div class="row" style="margin-top:6px">${['scale','clock','chalk','powder','shard'].map(k=>`<button class="btn ${S.armed[k]?'armed':''}" style="font-size:11px;padding:6px 2px" onclick="useItem('${k}')" ${S.cons[k]||S.armed[k]?'':'disabled'}>${ITEMS[k][0]}<br>×${S.cons[k]}</button>`).join('')}</div>
+    <div class="row" style="margin-top:6px"><button class="btn" onclick="toggleTr(${w.id})">${w.tr?'取消上缴':'放入征收窗口'}</button><button class="btn" onclick="feed(${w.id})">投入装备箱</button><button class="btn" onclick="S.sel=-1;S.fr=null;undoSnap=null;render()">放下</button></div>`;
+  }else h+=`<div style="text-align:center;padding:12px;opacity:.85">${undoSnap&&S.cons.clock?`<button class="btn gold" onclick="undo()">⏪ 用回溯怀表救回刚碎的舰装</button><br><br>`:''}点击下方仓库里的舰装放上工作台</div>`;
+  h+=`</div><h3>仓库（${S.inv.length}）</h3><div class="cards">`+S.inv.map(x=>`<div class="card ${x.id===S.sel?'sel':''} ${x.tr?'tr':''}" onclick="pick(${x.id})">${x.hot&&!x.scrap?'<span class="hot">🔥</span>':''}<div class="lv">${x.scrap?'残骸':'+'+x.lv}</div>${formName(x)}<br><b>${valOf(x).toLocaleString()}</b>${x.ch&&!x.scrap?`<br><small>⚡${x.ch}/10</small>`:''}<span class="tg" onclick="event.stopPropagation();toggleTr(${x.id})">${x.tr?'📦 待上缴':'放入窗口'}</span></div>`).join('')+`</div>
+  <div class="tabs">${[['shop','装备箱'],['merch','明石商店'+(S.merch?'':'🔒')],['shelf','设备架 '+S.relics.length+'/8'],['codex','图鉴/成就'],['cal','日历']].map(([k,n])=>`<button class="btn ${S.tab==k?'on':''}" onclick="tab('${k}')">${n}</button>`).join('')}</div><div class="panel">${panel()}</div>
+  <div style="text-align:center;margin-top:10px"><button class="btn" onclick="help()">📖 说明</button> <button class="btn" onclick="if(confirm('放弃当前进度重新开始？'))newRun()">重新开始</button></div>
+  <div class="foot"><div class="in"><button class="btn red big" style="width:100%" onclick="bell()">🔔 敲钟结束今天（${tv.toLocaleString()} / ${q.toLocaleString()}）</button></div></div>`;
+  $('#app').innerHTML=h}
+function rel(k,btn){const r=R[k];return `<div class="relic r${r[2]}"><div style="flex:1"><b>${r[0]}</b><span class="tag">${['普通','稀有','传说'][r[2]]}${r[5]=='m'?'·杰作':r[5]=='a'?'·成就':''}</span><br>${r[1]}</div>${btn||''}</div>`}
+function panel(){
+  if(S.tab=='shop'){if(S.gift)return `<small>第一天：从 3 个初始设备中免费选 1 个（不能刷新）</small>`+S.shop.map((r,i)=>rel(r.k,`<button class="btn gold" onclick="buyRelic(${i})">免费</button>`)).join('');
+    if(!S.shop.length&&S.day==1)return '<small>明天装备箱正式营业</small>';
+    return `<small>任何舰装投入装备箱都只换 1 张物资券。今日概率 普通/稀有/传说 = ${shopOdds(S.day).join('/')}</small>`+S.shop.map((r,i)=>rel(r.k,r.sold?'<small>已兑换</small>':`<button class="btn gold" onclick="buyRelic(${i})">${r.c} 券</button>`)).join('')+
+    `<button class="btn" style="width:100%" onclick="reroll()">🔄 刷新（${has('worn_voucher')&&!S.freeRr?'免费':rerollCost().toLocaleString()+' 资金'}）</button>`}
+  if(S.tab=='merch'){if(!S.merch)return `<small>明石每 3 天来一次（第 3、6、9…天），今天不在喵~ 下次：第 ${Math.ceil((S.day+1)/3)*3} 天</small>`;
+    return '<small>用资金购买；同一商品每多买一件价格 ×3</small>'+S.merch.map((it,i)=>`<div class="relic"><div style="flex:1"><b>${it.name}</b> <small>剩 ${it.stock-it.bought}</small><br>${ITEMS[it.k]?ITEMS[it.k][1]:it.k=='special'?'商人专属系列，基础价值是普通舰装的 2 倍，每 2 级换一种外形':'普通的 +0 舰装'}</div>${it.bought>=it.stock?'<small>售罄</small>':`<button class="btn gold" onclick="buyM(${i})">${(it.p*Math.pow(3,it.bought)).toLocaleString()}</button>`}</div>`).join('')}
+  if(S.tab=='shelf')return (S.relics.length?S.relics.map(k=>rel(k,`<button class="btn" onclick="drop('${k}')">丢弃</button>`)).join(''):'<small>还没有设备</small>')+
+    `<small>本局：缴足 ${S.paid} 次 · 失败 ${S.fails} 次 · 打碎 ${S.broken} 件 · 狂热 ${S.frenzies} 次${S.grudge?' · 怨念大成功签 '+S.grudge:''}${Object.values(S.runT).some(x=>x)?' · 永久签 '+Object.entries(S.runT).filter(e=>e[1]).map(e=>NM[e[0]]+'+'+e[1]).join(' '):''}</small>`;
+  if(S.tab=='codex'){let h='<b>成就</b>（跨局保留，解锁的设备会加入以后的装备箱）';for(const k in ACH)h+=`<div class="relic"><div style="flex:1"><b>${M.ach[k]?'🏆 ':'🔒 '}${ACH[k][0]}</b><br>${ACH[k][1]}</div></div>`;
+    h+='<b>舰装图鉴</b>';for(const f in FAM){const m=M.forms[f]??-1;const forms=FAM[f].slice(1);const lv0=MERCH_LINES.includes(f)?0:10,stp=2;
+      h+=`<div class="relic"><div><b>${FAM[f][0]}</b> <small>最高 +${m<0?'—':m}</small><br>${forms.map((n,i)=>m>=lv0+i*stp?n:'???').join(' → ')}</div></div>`}
+    return h+`<small>累计 ${M.runs} 局，历史最高单件 ${M.best.toLocaleString()}</small>`}
+  if(S.tab=='cal'){let h='<div class="cal">';for(let d=1;d<=Math.max(21,S.day+3);d++)h+=`<div class="${d==S.day?'now':''} ${isMerchDay(d)?'mer':''} ${d<S.day?'past':''}">${d}<br>${quotaOf(d)>=1e4?Math.round(quotaOf(d)/1000)+'k':quotaOf(d)}</div>`;
+    return h+'</div><small>绿框 = 明石来访日。第 21 天之后为延长期，征收每天 +20%。</small>'}
+}
+function tab(t){S.tab=t;render()}
+function pick(id){if(S.fr&&S.fr.id!==id)S.fr=null;S.sel=S.sel===id?-1:id;undoSnap=null;procs=[];snd('hold');render()}
 function toggleTr(id){const w=S.inv.find(x=>x.id===id);w.tr=!w.tr;snd('hold');save();render()}
-function sell(id){const w=S.inv.find(x=>x.id===id);if(w.lv>0&&!confirm(`这件是 +${w.lv}，装备箱只给 1 张券，确定？`))return;S.cred+=(w.lv==0&&has('r_credit'))?2:1;S.inv=S.inv.filter(x=>x!==w);S.sel=-1;snd('buy');say('装备箱咕噜咕噜地吞下去了。');save();render()}
-function buyRelic(i){const r=S.shop[i];if(S.relics.length>=8)return alert('设备栏满了（8/8），先丢弃一个');
-  if(r.c>S.cred)return alert('物资券不够');S.cred-=r.c;S.relics.push(r.k);r.sold=true;if(S.starter){S.starter=false;S.shop.forEach(x=>x.sold=true)}
-  if(r.k==='r_heat')S.inv.forEach(x=>x.hot=true);snd('buy');say(`拿到了「${RELICS[r.k][0]}」！`);save();render()}
-function reroll(){if(S.gold<S.reroll)return alert('资金不够');S.gold-=S.reroll;S.reroll=Math.round(S.reroll*1.6);S.shop=rollShop(false);snd('buy');save();render()}
-function drop(k){if(confirm('丢弃后不会返还任何东西，确定？')){S.relics=S.relics.filter(x=>x!==k);save();render()}}
-function buy(k){const s=SHOP.find(x=>x[0]==k);if(S.gold<s[2])return alert('资金不够');S.gold-=s[2];snd('buy');
-  if(k=='new')S.inv.push(mkW());if(k=='scale')S.scale++;if(k=='rew')S.rew++;if(k=='great')S.sure=1;if(k=='calm')S.anger=Math.max(0,S.anger-1);save();render()}
-function bell(){const q=quota(S.day)*(has('r_quota')?.88:1)|0;const tr=S.inv.filter(x=>x.tr);const tv=tr.reduce((a,x)=>a+valOf(x),0);
-  if(!confirm(`上缴 ${tv.toLocaleString()} / 需要 ${q.toLocaleString()}，敲钟结束今天？`))return;
-  snd('bell');const ok=tv>=q;let msg;
-  if(ok){msg=`塞壬清点了贡品……「哼，够了。」<br>上缴 ${tv.toLocaleString()} ≥ ${q.toLocaleString()}`;if(has('r_calm')&&tv>=q*1.5&&S.anger){S.anger--;msg+='<br>超额缴纳，塞壬的怒气平息了一些。'}}
-  else{S.anger++;snd('fail');msg=`塞壬不满地敲了敲栏杆……<br>只缴了 ${tv.toLocaleString()} / ${q.toLocaleString()}<br><b style="color:#e8445a">怒气 ${S.anger}/3</b>`}
-  const g=Math.round(tv*.1*(has('r_gold')?1.5:1));S.gold+=g;msg+=`<br>返还资金 +${g}`;
-  S.inv=S.inv.filter(x=>!x.tr);S.sel=-1;S.last=null;
-  if(S.anger>=3){S.over=1;save();return modal('作战失败',`${msg}<br><br>塞壬的耐心耗尽了……港区被封锁。<br>坚持到第 ${S.day} 天，最高单件价值 ${S.maxv.toLocaleString()}。`,'再来一局',()=>newRun())}
-  if(S.day>=DAYS&&!S.won){S.won=1;S.day++;morning();save();return modal('契约完成！🎉',`${msg}<br><br>撑过了全部 ${DAYS} 天！塞壬灰溜溜地撤退了。<br>最高单件价值 ${S.maxv.toLocaleString()}，怒气 ${S.anger}/3。<br>可以继续挑战无尽天数。`,'继续无尽模式',()=>render())}
-  S.day++;morning();S.tab=shopDay()?'shop':'relic';say(shopDay()?'明石的商店今天开门了喵~':'新的一天，送来了新的舰装。');save();modal(`第 ${S.day-1} 天结算`,msg,'下一天',()=>render())}
 function modal(t,body,btn,cb){const m=document.createElement('div');m.className='modal';m.innerHTML=`<div class="box"><h2>${t}</h2>${body}<br><br><button class="btn gold" style="width:100%">${btn}</button></div>`;document.body.appendChild(m);m.querySelector('button').onclick=()=>{m.remove();cb&&cb()}}
-function help(){modal('港区锻造税 · 玩法说明',`塞壬占领了港区的工坊，要求你每天傍晚缴纳"锻造税"。撑过 <b>${DAYS}</b> 天就胜利；没缴够会让塞壬<b>怒气 +1</b>，满 3 次即失败。<br><br>
-<b>1. 加热</b>：每天早上送来 3 件舰装，点选后先加热一次。<br>
-<b>2. 强化</b>：每锤从概率条里抽结果：大成功 +2、成功 +1、维持、受损 -1、<b>破碎（舰装消失）</b>。等级越高越容易碎。每级价值 ×1.5。<br>
-<b>3. 狂热</b>：同一件舰装敲满 ${chMax()} 锤后，下一锤开始进入狂热，连续 7 锤绝不破碎！<br>
-<b>4. 上缴</b>：把舰装放入征收窗口，只看总价值。敲钟结束这一天。上缴的舰装按价值 10% 返还资金。<br>
-<b>5. 装备箱</b>：任何舰装投进去都只换 1 张物资券，用券兑换设备（最多 8 个）改变概率和规则。第一天免费选一个。<br>
-<b>6. 明石商店</b>：每 3 天营业，用资金买舰装、损管套件等。<br>
-没上缴的舰装会留到第二天。进度自动保存。<br><br><small>玩法致敬 ForgeTax（GraveYardDev），美术与文本为原创同人，非官方作品。</small>`,'明白了！')}
+function help(){modal('港区锻造税 · 玩法说明',`塞壬占领了港区工坊，每天傍晚征收"锻造税"。撑过 <b>21</b> 天即完成契约；缴不够让塞壬<b>怒气 +1</b>，第 3 次就会失败。
+<br><br><b>① 加热</b>：每天早上送来 3 件舰装。点选后先加热一次（之后不会冷却）。
+<br><b>② 强化</b>：每锤从 1000 张签里抽一张：<span style="color:#d0359f">大成功 +2 级且价值×2.5</span>、<span style="color:#1f9a63">成功 +1</span>、维持、<span style="color:#c27a10">受损 -1</span>、<span style="color:#c3203a">破碎（舰装消失）</span>。+0 不会碎，+4→24.8%，+10→46.7%，+30 起 72%。每级价值 ×1.5（+0=320，+5=2,430，+10=18,453）。概率条永远显示下一锤的准确概率。
+<br><b>③ 狂热</b>：同一件舰装敲满 10 格，下一锤开始 <b>4 秒狂热</b>：期间绝不破碎，抓紧连点（每锤间隔 0.64 秒）。
+<br><b>④ 上缴</b>：把舰装放入征收窗口，只看总价值。敲钟结束这一天。无论是否缴够，上缴的价值全部返还为资金。没上缴的舰装会留到第二天。
+<br><b>⑤ 装备箱</b>：任何舰装投入都只换 1 张物资券。第 1 天免费选 1 个初始设备；之后每天 3 个设备，可用资金刷新。设备架最多 8 个。
+<br><b>⑥ 明石商店</b>：第 3、6、9…天来访，卖舰装、专属系列舰装和消耗品（损管套件、回溯怀表等）。
+<br><b>⑦ 成就与杰作</b>：把某系列舰装锻到 +20、完成契约等会解锁新设备，以后的局里会出现。
+<br><br><small>玩法与数值致敬 Steam 游戏《ForgeTax》（GraveYardDev），依据其 10 月 12 日版本的公开资料复刻。美术、名称和文本均为碧蓝航线风原创同人，非官方作品。</small>`,'明白了！')}
 load();render();if(!localStorage.getItem('ftal_seen')){localStorage.setItem('ftal_seen',1);help()}
 </script></body></html>
