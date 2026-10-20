@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>港区锻造税 · 塞壬的征收</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
+body{margin:0;font-family:system-ui,"PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(180deg,#0b2447,#163a6b 45%,#0e2a50);color:#eaf4ff;min-height:100vh}
+#app{max-width:480px;margin:0 auto;padding:8px 10px 90px}
+.bar{display:flex;flex-wrap:wrap;gap:6px;justify-content:space-between;background:rgba(255,255,255,.08);border:1px solid #c9a75a;border-radius:12px;padding:8px 10px;font-size:13px}
+.bar b{color:#ffd77a}.anger span{display:inline-block;width:14px;height:14px;border-radius:50%;background:#33507a;margin-left:2px;vertical-align:-2px}.anger span.on{background:#ff4d6d;box-shadow:0 0 6px #ff4d6d}
+.scene{position:relative;margin-top:8px;height:210px;border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#9fd8ff 0%,#dff3ff 55%,#3c78b5 56%,#1d4f86 100%);border:2px solid #c9a75a}
+.speech{position:absolute;left:120px;right:8px;top:10px;background:#fff;color:#1b3358;border-radius:12px;padding:8px 10px;font-size:13px;min-height:44px;box-shadow:0 2px 6px #0004}
+.speech:before{content:"";position:absolute;left:-8px;top:16px;border:8px solid transparent;border-right-color:#fff;border-left:0}
+.siren{position:absolute;right:8px;bottom:6px;width:120px;opacity:.95}
+.who{position:absolute;left:4px;bottom:0;width:120px}
+.anvil{margin-top:8px;background:rgba(255,255,255,.07);border:1px solid #7fb3e6;border-radius:14px;padding:10px}
+.odds{display:flex;height:16px;border-radius:8px;overflow:hidden;font-size:10px;margin:6px 0}
+.odds div{display:flex;align-items:center;justify-content:center;overflow:hidden;color:#fff;white-space:nowrap}
+.legend{font-size:11px;opacity:.85;display:flex;gap:8px;flex-wrap:wrap}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:2px}
+.charge{display:flex;gap:3px;margin:6px 0}.charge i{flex:1;height:8px;border-radius:3px;background:#2b4a75}.charge i.on{background:#ffd77a}.charge.fr i{background:#ff7ad9;animation:pulse .4s infinite alternate}
+@keyframes pulse{to{opacity:.4}}
+.btn{border:0;border-radius:10px;padding:10px 12px;font-size:15px;font-weight:700;color:#0b2447;background:linear-gradient(#fff,#cfe8ff);box-shadow:0 2px 0 #6b95c4;cursor:pointer}
+.btn.gold{background:linear-gradient(#ffeaa8,#e0b44f);box-shadow:0 2px 0 #9b7424}.btn.red{background:linear-gradient(#ffc2cc,#ff6b84);color:#fff;box-shadow:0 2px 0 #a8304a}
+.btn:disabled{opacity:.4}.btn:active{transform:translateY(2px);box-shadow:none}
+.row{display:flex;gap:8px}.row .btn{flex:1}
+.big{font-size:22px;padding:16px}
+.cur{display:flex;align-items:center;gap:10px}
+.gear{width:64px;height:64px;flex:none}
+h3{margin:12px 0 6px;font-size:15px;color:#ffd77a}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.card{background:rgba(255,255,255,.1);border:2px solid #4f7fb5;border-radius:10px;padding:5px;text-align:center;font-size:12px;position:relative}
+.card.sel{border-color:#ffd77a;box-shadow:0 0 8px #ffd77a}.card.tr{border-color:#ff7ad9;background:rgba(255,122,217,.18)}
+.card .lv{font-size:18px;font-weight:800;color:#ffd77a}.card .hot{position:absolute;top:2px;right:4px}
+.tabs{display:flex;gap:4px;margin-top:10px}.tabs .btn{flex:1;font-size:13px;padding:8px 4px}
+.tabs .btn.on{background:linear-gradient(#ffeaa8,#e0b44f)}
+.panel{background:rgba(0,0,0,.18);border-radius:12px;padding:8px;margin-top:6px}
+.relic{display:flex;gap:8px;align-items:center;background:rgba(255,255,255,.08);border-radius:10px;padding:6px;margin-bottom:6px;font-size:12px}
+.relic b{font-size:13px;color:#bfe6ff}.relic .btn{font-size:12px;padding:6px 8px;flex:none}
+.foot{position:fixed;left:0;right:0;bottom:0;background:linear-gradient(transparent,#0b2447 30%);padding:14px 10px 10px}
+.foot .in{max-width:480px;margin:0 auto}
+.modal{position:fixed;inset:0;background:#0009;display:flex;align-items:center;justify-content:center;z-index:9;padding:16px}
+.modal .box{background:linear-gradient(#f4fbff,#d6ecff);color:#1b3358;border-radius:16px;border:3px solid #c9a75a;padding:16px;max-width:440px;max-height:85vh;overflow:auto;font-size:14px;line-height:1.6}
+.modal h2{margin:0 0 8px;color:#1d4f86}
+.fx{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%);font-size:34px;font-weight:900;pointer-events:none;text-shadow:0 2px 6px #000;animation:pop 1s forwards;z-index:8}
+@keyframes pop{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-90%) scale(1)}}
+.shake{animation:sh .3s}@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+small{opacity:.75}
+</style></head><body><div id="app"></div>
+<script>
+"use strict";
+// ===== 数据 =====
+const BASE=320, DAYS=21;
+const quota=d=>Math.round(1800*Math.pow(1.275,d-1)/10)*10;
+const BRK=[0,.04,.10,.17,.248,.297,.33,.36,.39,.43,.467];
+function odds(lv,st){ // 返回 [大成功,成功,维持,受损,破碎]
+  let b=lv<BRK.length?BRK[lv]:Math.min(.7,.467+.03*(lv-10));
+  let g=.08,s=Math.max(.22,.6-.035*lv),dm=lv?Math.min(.18,.06+.01*lv):0;
+  if(has('r_blessing'))b*=.85; if(has('r_great'))g+=.06;
+  if(has('r_lowsafe')&&lv<=3){b=0}
+  if(st&&st.fr>0)b=0;
+  if(has('r_nodmg')){dm=0}
+  let h=Math.max(0,1-g-s-dm-b);
+  if(h<0.03){const k=(1-.03)/(g+s+dm+b);g*=k;s*=k;dm*=k;b*=k;h=.03}
+  return [g,s,h,dm,b];
+}
+const valOf=w=>Math.round(BASE*(has('r_base')?1.4:1)*Math.pow(1.5,w.lv)*(w.bonus||1));
+const NAMES=['127mm连装炮','152mm三联装炮','533mm鱼雷','双联40mm博福斯','203mm主炮','381mm三联装炮','九三式氧气鱼雷','Mk.12 5英寸炮'];
+const RELICS={
+ r_blessing:['雅努斯的祈祷','破碎概率降低 15%（相对值）'],
+ r_great:['维修猫的幸运锤','大成功概率 +6%'],
+ r_lowsafe:['明石的担保书','+3 及以下强化时绝不破碎'],
+ r_nodmg:['精密校准仪','不再出现"受损"结果'],
+ r_base:['紫金魔方','所有舰装基础价值 +40%'],
+ r_fr7:['恶毒的兔耳发箍','狂热只需 7 次强化就能充满'],
+ r_frlong:['满破之心','狂热持续 10 锤（原 7 锤）'],
+ r_quota:['指挥官的外交函','塞壬征收额 -12%'],
+ r_supply:['后勤补给线','每天早上多送来 1 件舰装'],
+ r_hold:['回火工艺','"维持"时该舰装价值 ×1.08（可叠加）'],
+ r_rewind:['时间回溯装置','每天获得 1 次撤销（撤回上一锤）'],
+ r_scrap:['废料回收站','舰装破碎时返还其价值 40% 的资金'],
+ r_credit:['装备箱扩容','投入 +0 舰装可换 2 张物资券'],
+ r_gold:['港区财务官','结算返还资金 +50%'],
+ r_heat:['常驻锅炉','舰装送来时已预热'],
+ r_calm:['和平条约草案','超额缴纳 50% 以上时塞壬怒气 -1'],
+};
+const SHOP=[['new','新的舰装 (+0)',300],['scale','损管套件：挡下下一次破碎',650],['rew','快速修理：+1 次撤销',400],['great','高级图纸：下一锤必定成功',500],['calm','塞壬的贡品：怒气 -1',1500]];
+// ===== 状态 =====
+let S;
+function fresh(){return{day:1,anger:0,gold:0,cred:0,relics:[],inv:[],sel:-1,shop:null,firstPick:true,scale:0,rew:0,sure:0,hist:[],tab:'relic',over:0,maxv:0,uid:1,starter:true}}
+function has(r){return S&&S.relics.includes(r)}
+function mkW(){return{id:S.uid++,n:NAMES[Math.random()*NAMES.length|0],lv:0,hot:has('r_heat'),ch:0,fr:0,tr:false,bonus:1}}
+function save(){localStorage.setItem('ftal',JSON.stringify(S))}
+function load(){try{S=JSON.parse(localStorage.getItem('ftal'))}catch(e){}if(!S||!S.day)newRun(true)}
+function newRun(quiet){S=fresh();morning(true);if(!quiet)say('新的契约开始了，指挥官……塞壬每天傍晚都会来征收，请加油！');save();render()}
+function morning(first){
+  const n=3+(has('r_supply')?1:0);for(let i=0;i<n;i++)S.inv.push(mkW());
+  if(has('r_rewind'))S.rew+=1;
+  S.shop=rollShop(first);S.reroll=100;
+}
+function rollShop(first){const pool=Object.keys(RELICS).filter(k=>!S.relics.includes(k));pool.sort(()=>Math.random()-.5);return pool.slice(0,3).map(k=>({k,c:first?0:1+(Math.random()*2|0),sold:false}))}
+// ===== 音效 =====
+let AC;function snd(type){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const t=AC.currentTime;
+ const tone=(f,d,w='square',v=.15,dt=0,f2)=>{const o=AC.createOscillator(),g=AC.createGain();o.type=w;o.frequency.setValueAtTime(f,t+dt);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+dt+d);g.gain.setValueAtTime(v,t+dt);g.gain.exponentialRampToValueAtTime(.001,t+dt+d);o.connect(g).connect(AC.destination);o.start(t+dt);o.stop(t+dt+d)};
+ const noise=(d,v=.3)=>{const b=AC.createBuffer(1,AC.sampleRate*d,AC.sampleRate),a=b.getChannelData(0);for(let i=0;i<a.length;i++)a[i]=(Math.random()*2-1)*(1-i/a.length);const s=AC.createBufferSource(),g=AC.createGain();g.gain.value=v;s.buffer=b;s.connect(g).connect(AC.destination);s.start()};
+ ({hit:()=>{noise(.08,.4);tone(900,.15,'triangle',.2)},great:()=>{tone(660,.1,'triangle',.2);tone(990,.25,'triangle',.2,.08);tone(1320,.3,'sine',.15,.16)},ok:()=>tone(780,.18,'triangle',.18),hold:()=>tone(300,.12,'sine',.12),
+  dmg:()=>tone(400,.25,'sawtooth',.12,0,150),brk:()=>{noise(.5,.5);tone(200,.5,'sawtooth',.2,0,40)},heat:()=>{noise(.6,.12);tone(120,.6,'sine',.1,0,240)},
+  bell:()=>{tone(880,1.2,'sine',.2);tone(1320,1,'sine',.08)},fail:()=>{tone(220,.5,'square',.15,0,110);tone(160,.7,'square',.12,.3,80)},buy:()=>{tone(1200,.08,'square',.1);tone(1600,.12,'square',.1,.07)},fr:()=>{for(let i=0;i<5;i++)tone(500+i*150,.12,'square',.1,i*.05)}})[type]()}catch(e){}}
+// ===== 画面 =====
+const $=s=>document.querySelector(s);
+let speech='';function say(t){speech=t}
+function fx(t,c){const d=document.createElement('div');d.className='fx';d.textContent=t;d.style.color=c;document.body.appendChild(d);setTimeout(()=>d.remove(),1000)}
+const LAFFEY=`<svg class="who" viewBox="0 0 120 140"><g id="ch"><path d="M38 40 L28 0 L50 34Z M82 40 L92 0 L70 34Z" fill="#fff" stroke="#e9a3b8" stroke-width="3"/><path d="M20 140 Q22 95 60 92 Q98 95 100 140Z" fill="#ffffff" stroke="#9fb6d6"/><path d="M45 100 L60 122 L75 100" fill="#e2445c"/><ellipse cx="60" cy="62" rx="36" ry="34" fill="#ffe9de"/><path d="M22 66 Q20 22 60 24 Q100 22 98 66 Q92 40 78 44 Q66 30 56 44 Q40 38 22 66Z" fill="#f2f2fa" stroke="#c7cde6"/><path d="M24 64 Q18 100 30 118 L34 70Z M96 64 Q102 100 90 118 L86 70Z" fill="#f2f2fa" stroke="#c7cde6"/><ellipse cx="46" cy="66" rx="6" ry="8" fill="#d6304e"/><ellipse cx="74" cy="66" rx="6" ry="8" fill="#d6304e"/><circle cx="44" cy="63" r="2" fill="#fff"/><circle cx="72" cy="63" r="2" fill="#fff"/><path id="mouth" d="M55 82 Q60 85 65 82" stroke="#a33" fill="none" stroke-width="2"/><ellipse cx="38" cy="78" rx="5" ry="2.5" fill="#ffb3c1" opacity=".7"/><ellipse cx="82" cy="78" rx="5" ry="2.5" fill="#ffb3c1" opacity=".7"/></g></svg>`;
+const SIREN=`<svg class="siren" viewBox="0 0 120 150"><path d="M10 150 Q20 90 60 80 Q100 90 110 150Z" fill="#222a3a"/><ellipse cx="60" cy="52" rx="30" ry="32" fill="#cfd8e6"/><path d="M28 50 Q30 10 60 14 Q92 10 92 50 L98 110 Q80 70 78 40 Q60 30 42 40 Q40 70 22 110Z" fill="#20283a"/><path d="M38 52 l12 4 M82 52 l-12 4" stroke="#ff2d55" stroke-width="5" stroke-linecap="round"/><path d="M50 72 Q60 66 70 72" stroke="#555" fill="none" stroke-width="2"/><path d="M30 24 L20 4 L42 18Z M90 24 L100 4 L78 18Z" fill="#3a4766"/><circle cx="60" cy="110" r="8" fill="#ff2d55" opacity=".8"/></svg>`;
+function gearSVG(w){const c=w?['#bfe6ff','#ffd77a','#ff9bd2','#ff6b6b'][Math.min(3,w.lv/4|0)]:'#567';return `<svg class="gear" viewBox="0 0 64 64"><rect x="6" y="34" width="52" height="14" rx="4" fill="#3b5f8f"/><rect x="18" y="24" width="28" height="14" rx="3" fill="#5b86bd"/><rect x="40" y="27" width="22" height="5" rx="2" fill="${c}"/><rect x="40" y="33" width="22" height="5" rx="2" fill="${c}"/>${w&&w.hot?'<path d="M14 22 q4-8 0-14 q8 6 4 14z" fill="#ff8a3d"/>':''}${w&&w.fr>0?'<circle cx="32" cy="40" r="28" fill="none" stroke="#ff7ad9" stroke-width="3"/>':''}</svg>`}
+function render(){
+  const w=S.inv.find(x=>x.id===S.sel);const q=quota(S.day)*(has('r_quota')?.88:1)|0;
+  const tv=S.inv.filter(x=>x.tr).reduce((a,x)=>a+valOf(x),0);
+  let h=`<div class="bar"><div>第 <b>${S.day}</b>/${DAYS} 天</div><div>征收 <b>${q.toLocaleString()}</b></div><div class="anger">怒气${[0,1,2].map(i=>`<span class="${i<S.anger?'on':''}"></span>`).join('')}</div><div>资金 <b>${S.gold}</b></div><div>物资券 <b>${S.cred}</b></div><div>损管 <b>${S.scale}</b> 撤销 <b>${S.rew}</b></div></div>
+  <div class="scene" id="scene">${SIREN}${LAFFEY}<div class="speech">${speech||'指挥官，选一件舰装，先加热再强化吧……'}</div></div>
+  <div class="anvil">`;
+  if(w){const o=odds(w.lv,w);const col=['#ff7ad9','#43c98b','#8aa3c2','#f0a33a','#e8445a'],nm=['大成功','成功','维持','受损','破碎'];
+    h+=`<div class="cur">${gearSVG(w)}<div style="flex:1"><b>${w.n}</b> <span style="color:#ffd77a;font-size:20px;font-weight:800">+${w.lv}</span><br>价值 <b style="color:#ffd77a">${valOf(w).toLocaleString()}</b> → 成功后 ${Math.round(valOf(w)*1.5).toLocaleString()}${w.fr>0?`<br><b style="color:#ff7ad9">狂热中！剩余 ${w.fr} 锤不会破碎</b>`:''}${S.sure?'<br><b style="color:#43c98b">图纸生效：下一锤必定成功</b>':''}</div></div>
+    <div class="odds">${o.map((p,i)=>p>0.001?`<div style="width:${p*100}%;background:${col[i]}">${p>.07?Math.round(p*1000)/10+'%':''}</div>`:'').join('')}</div>
+    <div class="legend">${nm.map((n,i)=>`<span><i style="background:${col[i]}"></i>${n} ${(o[i]*100).toFixed(1)}%</span>`).join('')}</div>
+    <div class="charge ${w.fr>0?'fr':''}">${Array.from({length:chMax()},(_,i)=>`<i class="${i<w.ch||w.fr>0?'on':''}"></i>`).join('')}</div>
+    <div class="row">${w.hot?`<button class="btn gold big" onclick="strike()">🔨 强化</button>`:`<button class="btn red big" onclick="heat()">🔥 加热</button>`}</div>
+    <div class="row" style="margin-top:6px"><button class="btn" onclick="undo()" ${S.rew&&S.last?'':'disabled'}>↶ 撤销</button><button class="btn" onclick="toggleTr(${w.id})">${w.tr?'取消上缴':'放入征收窗口'}</button><button class="btn" onclick="sell(${w.id})">投入装备箱</button></div>`;
+  }else h+=`<div style="text-align:center;padding:14px;opacity:.8">点击下方仓库中的舰装放上工作台</div>`;
+  h+=`</div><h3>仓库（${S.inv.length}） <small>征收窗口：${tv.toLocaleString()} / ${q.toLocaleString()}</small></h3><div class="cards">`+
+   S.inv.map(x=>`<div class="card ${x.id===S.sel?'sel':''} ${x.tr?'tr':''}" onclick="pick(${x.id})">${x.hot?'<span class="hot">🔥</span>':''}<div class="lv">+${x.lv}</div>${x.n}<br><b>${valOf(x).toLocaleString()}</b>${x.tr?'<br>📦待上缴':''}${x.ch&&!x.fr?`<br><small>狂热 ${x.ch}/${chMax()}</small>`:''}</div>`).join('')+`</div>
+  <div class="tabs"><button class="btn ${S.tab=='relic'?'on':''}" onclick="tab('relic')">明石装备箱</button><button class="btn ${S.tab=='shop'?'on':''}" onclick="tab('shop')">明石商店${shopDay()?'':'🔒'}</button><button class="btn ${S.tab=='mine'?'on':''}" onclick="tab('mine')">我的设备(${S.relics.length}/8)</button></div><div class="panel">`;
+  if(S.tab=='relic'){h+=`<small>${S.starter?'第一天：免费挑选 1 个初始设备':'把舰装投入装备箱换物资券，再用物资券兑换设备（不论等级，一件=1券）'}</small>`;
+    h+=S.shop.map((r,i)=>`<div class="relic"><div style="flex:1"><b>${RELICS[r.k][0]}</b><br>${RELICS[r.k][1]}</div>${r.sold?'已兑换':`<button class="btn gold" onclick="buyRelic(${i})">${r.c?r.c+' 券':'免费'}</button>`}</div>`).join('');
+    if(!S.starter)h+=`<button class="btn" onclick="reroll()">🔄 刷新（${S.reroll} 资金）</button>`;}
+  else if(S.tab=='shop'){h+=shopDay()?SHOP.map(s=>`<div class="relic"><div style="flex:1"><b>${s[1]}</b></div><button class="btn gold" onclick="buy('${s[0]}')">${s[2]} 资金</button></div>`).join(''):`<small>明石每 3 天来一次（第 3、6、9…天），今天不营业喵~</small>`}
+  else h+=S.relics.length?S.relics.map(k=>`<div class="relic"><div style="flex:1"><b>${RELICS[k][0]}</b><br>${RELICS[k][1]}</div><button class="btn" onclick="drop('${k}')">丢弃</button></div>`).join(''):'<small>还没有设备</small>';
+  h+=`</div><div style="text-align:center;margin-top:10px"><button class="btn" onclick="help()">📖 说明</button> <button class="btn" onclick="if(confirm('放弃当前进度重新开始？'))newRun()">重新开始</button></div>
+  <div class="foot"><div class="in"><button class="btn red big" style="width:100%" onclick="bell()">🔔 敲钟结束今天（上缴 ${tv.toLocaleString()}）</button></div></div>`;
+  $('#app').innerHTML=h;
+}
+const chMax=()=>has('r_fr7')?7:10;
+const shopDay=()=>S.day%3===0;
+function tab(t){S.tab=t;render()}
+function pick(id){S.sel=S.sel===id?-1:id;S.last=null;snd('hold');render()}
+function heat(){const w=cur();if(!w)return;snd('heat');say('加热中……呼，好烫。');render();const b=document.querySelector('.big');b.disabled=true;b.textContent='🔥 加热中…';setTimeout(()=>{w.hot=true;say('热好了！放上铁砧，敲吧，指挥官。');save();render()},1200)}
+function cur(){return S.inv.find(x=>x.id===S.sel)}
+function strike(){const w=cur();if(!w||!w.hot)return;
+  S.last={id:w.id,lv:w.lv,ch:w.ch,fr:w.fr,bonus:w.bonus};
+  const startFr=w.ch>=chMax()&&!w.fr;
+  if(startFr){w.fr=has('r_frlong')?10:7;w.ch=0;snd('fr');fx('狂热开始！','#ff7ad9')}
+  const o=odds(w.lv,w);let r=Math.random(),i=0;for(;i<5;i++){if(r<o[i])break;r-=o[i]}if(i>4)i=2;
+  if(S.sure){S.sure=0;if(i>1)i=1}
+  if(i==4&&S.scale){S.scale--;i=2;fx('损管挡下了！','#43c98b')}
+  snd('hit');
+  if(i==0){w.lv+=2;w.bonus*=1.0;w.lv=w.lv;snd('great');fx('大成功！+2','#ff7ad9');say(pick1(['哇！闪闪发光的！','这下塞壬也要吓一跳了，嘿嘿~','好厉害……']))}
+  else if(i==1){w.lv++;snd('ok');fx('成功 +1','#43c98b');say(pick1(['很顺利呢。','再来一下？……还是收手？','嗯，手感不错。']))}
+  else if(i==2){if(has('r_hold'))w.bonus*=1.08;snd('hold');fx('维持','#bfe6ff');say('没变化……')}
+  else if(i==3){w.lv=Math.max(0,w.lv-1);snd('dmg');fx('受损 -1','#f0a33a');say('呜，敲歪了一点……')}
+  else{snd('brk');fx('破碎！','#e8445a');document.body.classList.add('shake');setTimeout(()=>document.body.classList.remove('shake'),300);
+    if(has('r_scrap')){const g=valOf(w)*.4|0;S.gold+=g;say(`碎掉了……回收了 ${g} 资金。`)}else say('碎、碎掉了……指挥官别难过……');
+    S.inv=S.inv.filter(x=>x!==w);S.sel=-1;S.last=null;save();render();return}
+  if(w.fr>0)w.fr--;else w.ch=Math.min(chMax(),w.ch+1);
+  if(w.ch>=chMax()&&!w.fr)say('狂热充满了！下一锤开始的几锤都不会碎！');
+  S.maxv=Math.max(S.maxv,valOf(w));save();render()}
+function pick1(a){return a[Math.random()*a.length|0]}
+function undo(){if(!S.rew||!S.last)return;const w=S.inv.find(x=>x.id===S.last.id);if(!w)return;Object.assign(w,{lv:S.last.lv,ch:S.last.ch,fr:S.last.fr,bonus:S.last.bonus});S.rew--;S.last=null;say('时间倒流~刚才那锤不算！');snd('buy');save();render()}
+function toggleTr(id){const w=S.inv.find(x=>x.id===id);w.tr=!w.tr;snd('hold');save();render()}
+function sell(id){const w=S.inv.find(x=>x.id===id);if(w.lv>0&&!confirm(`这件是 +${w.lv}，装备箱只给 1 张券，确定？`))return;S.cred+=(w.lv==0&&has('r_credit'))?2:1;S.inv=S.inv.filter(x=>x!==w);S.sel=-1;snd('buy');say('装备箱咕噜咕噜地吞下去了。');save();render()}
+function buyRelic(i){const r=S.shop[i];if(S.relics.length>=8)return alert('设备栏满了（8/8），先丢弃一个');
+  if(r.c>S.cred)return alert('物资券不够');S.cred-=r.c;S.relics.push(r.k);r.sold=true;if(S.starter){S.starter=false;S.shop.forEach(x=>x.sold=true)}
+  if(r.k==='r_heat')S.inv.forEach(x=>x.hot=true);snd('buy');say(`拿到了「${RELICS[r.k][0]}」！`);save();render()}
+function reroll(){if(S.gold<S.reroll)return alert('资金不够');S.gold-=S.reroll;S.reroll=Math.round(S.reroll*1.6);S.shop=rollShop(false);snd('buy');save();render()}
+function drop(k){if(confirm('丢弃后不会返还任何东西，确定？')){S.relics=S.relics.filter(x=>x!==k);save();render()}}
+function buy(k){const s=SHOP.find(x=>x[0]==k);if(S.gold<s[2])return alert('资金不够');S.gold-=s[2];snd('buy');
+  if(k=='new')S.inv.push(mkW());if(k=='scale')S.scale++;if(k=='rew')S.rew++;if(k=='great')S.sure=1;if(k=='calm')S.anger=Math.max(0,S.anger-1);save();render()}
+function bell(){const q=quota(S.day)*(has('r_quota')?.88:1)|0;const tr=S.inv.filter(x=>x.tr);const tv=tr.reduce((a,x)=>a+valOf(x),0);
+  if(!confirm(`上缴 ${tv.toLocaleString()} / 需要 ${q.toLocaleString()}，敲钟结束今天？`))return;
+  snd('bell');const ok=tv>=q;let msg;
+  if(ok){msg=`塞壬清点了贡品……「哼，够了。」<br>上缴 ${tv.toLocaleString()} ≥ ${q.toLocaleString()}`;if(has('r_calm')&&tv>=q*1.5&&S.anger){S.anger--;msg+='<br>超额缴纳，塞壬的怒气平息了一些。'}}
+  else{S.anger++;snd('fail');msg=`塞壬不满地敲了敲栏杆……<br>只缴了 ${tv.toLocaleString()} / ${q.toLocaleString()}<br><b style="color:#e8445a">怒气 ${S.anger}/3</b>`}
+  const g=Math.round(tv*.1*(has('r_gold')?1.5:1));S.gold+=g;msg+=`<br>返还资金 +${g}`;
+  S.inv=S.inv.filter(x=>!x.tr);S.sel=-1;S.last=null;
+  if(S.anger>=3){S.over=1;save();return modal('作战失败',`${msg}<br><br>塞壬的耐心耗尽了……港区被封锁。<br>坚持到第 ${S.day} 天，最高单件价值 ${S.maxv.toLocaleString()}。`,'再来一局',()=>newRun())}
+  if(S.day>=DAYS&&!S.won){S.won=1;S.day++;morning();save();return modal('契约完成！🎉',`${msg}<br><br>撑过了全部 ${DAYS} 天！塞壬灰溜溜地撤退了。<br>最高单件价值 ${S.maxv.toLocaleString()}，怒气 ${S.anger}/3。<br>可以继续挑战无尽天数。`,'继续无尽模式',()=>render())}
+  S.day++;morning();S.tab=shopDay()?'shop':'relic';say(shopDay()?'明石的商店今天开门了喵~':'新的一天，送来了新的舰装。');save();modal(`第 ${S.day-1} 天结算`,msg,'下一天',()=>render())}
+function modal(t,body,btn,cb){const m=document.createElement('div');m.className='modal';m.innerHTML=`<div class="box"><h2>${t}</h2>${body}<br><br><button class="btn gold" style="width:100%">${btn}</button></div>`;document.body.appendChild(m);m.querySelector('button').onclick=()=>{m.remove();cb&&cb()}}
+function help(){modal('港区锻造税 · 玩法说明',`塞壬占领了港区的工坊，要求你每天傍晚缴纳"锻造税"。撑过 <b>${DAYS}</b> 天就胜利；没缴够会让塞壬<b>怒气 +1</b>，满 3 次即失败。<br><br>
+<b>1. 加热</b>：每天早上送来 3 件舰装，点选后先加热一次。<br>
+<b>2. 强化</b>：每锤从概率条里抽结果：大成功 +2、成功 +1、维持、受损 -1、<b>破碎（舰装消失）</b>。等级越高越容易碎。每级价值 ×1.5。<br>
+<b>3. 狂热</b>：同一件舰装敲满 ${chMax()} 锤后，下一锤开始进入狂热，连续 7 锤绝不破碎！<br>
+<b>4. 上缴</b>：把舰装放入征收窗口，只看总价值。敲钟结束这一天。上缴的舰装按价值 10% 返还资金。<br>
+<b>5. 装备箱</b>：任何舰装投进去都只换 1 张物资券，用券兑换设备（最多 8 个）改变概率和规则。第一天免费选一个。<br>
+<b>6. 明石商店</b>：每 3 天营业，用资金买舰装、损管套件等。<br>
+没上缴的舰装会留到第二天。进度自动保存。<br><br><small>玩法致敬 ForgeTax（GraveYardDev），美术与文本为原创同人，非官方作品。</small>`,'明白了！')}
+load();render();if(!localStorage.getItem('ftal_seen')){localStorage.setItem('ftal_seen',1);help()}
+</script></body></html>
